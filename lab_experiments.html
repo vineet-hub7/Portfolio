@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab — Vineet Jethani</title>
+    <meta name="description" content="Ongoing experiments and prototypes — exploring hardware-software boundaries.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="contact.html">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <div class="spacer-nav"></div>
+
+    <main class="container page-section">
+
+        <div class="page-header reveal">
+            <span class="label">Lab</span>
+            <h1>The lab</h1>
+            <p>Ongoing exploration into hardware-software boundaries and raw engineering prototypes.</p>
+        </div>
+
+        <div class="grid grid-3 reveal-stagger" style="max-width: 900px;">
+
+            <div class="lab-card reveal">
+                <div class="lab-status">Active</div>
+                <h4>3D Integrated Circuits</h4>
+                <p>Modeling thermal dissipation in stacked silicon tiers for next-gen mobile CPUs.</p>
+            </div>
+
+            <div class="lab-card reveal">
+                <div class="lab-status">Active</div>
+                <h4>SNN Feature Extraction</h4>
+                <p>Testing event-based convolution filters on noisy thermal camera streams.</p>
+            </div>
+
+            <div class="lab-card reveal">
+                <div class="lab-status" style="color: var(--text-muted);">Archived</div>
+                <h4>Graphene FET Simulation</h4>
+                <p>Early-stage SPICE models for graphene-based field-effect transistors.</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                    </div>
+                </aside>
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

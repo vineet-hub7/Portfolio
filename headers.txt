@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+x-ua-compatible: IE=edge
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: Mon, 01 Jan 1990 00:00:00 GMT
+Date: Sat, 11 Apr 2026 12:07:00 GMT
+Permissions-Policy: ch-ua-arch=*, ch-ua-bitness=*, ch-ua-full-version=*, ch-ua-full-version-list=*, ch-ua-model=*, ch-ua-wow64=*, ch-ua-form-factors=*, ch-ua-platform=*, ch-ua-platform-version=*
+Content-Security-Policy: script-src 'nonce-QLNuAO37ovhnuHjFZ4TOTA' 'unsafe-inline';object-src 'none';base-uri 'self';report-uri /_/Nemo/cspreport;worker-src 'self'
+Content-Security-Policy: require-trusted-types-for 'script';report-uri /_/Nemo/cspreport
+Cross-Origin-Opener-Policy: same-origin
+Accept-CH: Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Model, Sec-CH-UA-WoW64, Sec-CH-UA-Form-Factors, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version
+Cross-Origin-Resource-Policy: same-site
+reporting-endpoints: default="/_/Nemo/web-reports?context=eJzjytHikmJw05BiKJK4wtoCxN-KfdlYSoD4rT_b7P_-bHOBWO1oAJsFEMf5BLIlALFpSCCbMxDf6QlkuwfEPU8D2fqAeOavQLbZQBzKFcQWDsRfJwexfQfiszOD2M4DsRAPx5NPL86xCdw4t-4Fo5JKUn5hfEFmSXJGWn5Rtm5eam6-bmlmvJGBkZmBiYGlnoF5fIEBAH6vOPc"
+Server: ESF
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Alt-Svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+Accept-Ranges: none
+Vary: Sec-Fetch-Dest, Sec-Fetch-Mode, Sec-Fetch-Site,Accept-Encoding
+Transfer-Encoding: chunked
+

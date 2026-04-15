@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — Vineet Jethani</title>
+    <meta name="description" content="Hardware projects by Vineet Jethani — RISC-V accelerators, neuromorphic SNN cores, and high-speed ADC interfaces.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="contact.html">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <div class="spacer-nav"></div>
+
+    <main class="container page-section">
+
+        <div class="page-header reveal">
+            <span class="label">Projects</span>
+            <h1>Selected work</h1>
+            <p>Exploring the frontier of hardware acceleration and neuromorphic computing.</p>
+        </div>
+
+        <div class="grid reveal-stagger" style="grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 28px;">
+
+            <!-- Project 1 -->
+            <a href="project_1.html" class="card card-link reveal">
+                <div class="card-label">VLSI / ML</div>
+                <h3>RISC-V Vector Accelerator</h3>
+                <p>A specialized silicon IP for high-throughput tensor operations, featuring a 5-stage decoupled pipeline.</p>
+
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <span class="stat-label">Latency</span>
+                        <span class="stat-value">1.2 ns</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Power</span>
+                        <span class="stat-value">45 mW</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Accuracy</span>
+                        <span class="stat-value">99.2%</span>
+                    </div>
+                </div>
+
+                <span class="card-arrow">Read more →</span>
+            </a>
+
+            <!-- Project 2 -->
+            <a href="project_2.html" class="card card-link reveal">
+                <div class="card-label">Neuromorphic</div>
+                <h3>Neuromorphic SNN Core</h3>
+                <p>Asynchronous event-based processing core inspired by biological neural systems for edge AI.</p>
+
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <span class="stat-label">Latency</span>
+                        <span class="stat-value">0.8 ms</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Power</span>
+                        <span class="stat-value">12 μW</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sparsity</span>
+                        <span class="stat-value">92%</span>
+                    </div>
+                </div>
+
+                <span class="card-arrow">Read more →</span>
+            </a>
+
+            <!-- Project 3 -->
+            <a href="project_3.html" class="card card-link reveal">
+                <div class="card-label">RF / Analog</div>
+                <h3>High-Speed ADC Interface</h3>
+                <p>Precision analog-to-digital bridge for RF signals, implementing multi-phase interleaving logic.</p>
+
+                <div class="stat-row">
+                    <div class="stat-item">
+                        <span class="stat-label">SNR</span>
+                        <span class="stat-value">72 dB</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">OSR</span>
+                        <span class="stat-value">16x</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Supply</span>
+                        <span class="stat-value">1.1 V</span>
+                    </div>
+                </div>
+
+                <span class="card-arrow">Read more →</span>
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                    </div>
+                </aside>
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

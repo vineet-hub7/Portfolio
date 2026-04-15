@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vineet Jethani — Hardware & VLSI Engineer</title>
+    <meta name="description"
+        content="Portfolio of Vineet Jethani — Electronics Engineer specializing in VLSI design, hardware ML acceleration, and neuromorphic computing.">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="#contact">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="grid grid-12" style="align-items: center; gap: 48px;">
+
+                    <!-- Profile -->
+                    <div class="col-span-4 reveal">
+                        <div class="profile-image">
+                            <img src="profile.jpeg" alt="Vineet Jethani">
+                        </div>
+                    </div>
+
+                    <!-- Headline -->
+                    <div class="col-span-8 reveal" style="transition-delay: 0.15s;">
+                        <div class="availability-banner">
+                            <div class="availability-dot"></div>
+                            Open to internships & full-time roles
+                        </div>
+                        <h1><span class="scramble-text">I design hardware</span><br>that <em>thinks.</em></h1>
+                        <p class="hero-subtitle">Electronics engineer at NIT Surat, working at the intersection of VLSI
+                            design, machine learning acceleration, and neuromorphic computing.</p>
+                        <div class="hero-meta">
+                            <div class="hero-meta-item">
+                                <span class="hero-meta-label">Focus</span>
+                                <span class="hero-meta-value">VLSI × Machine Learning</span>
+                            </div>
+                            <div class="hero-meta-item">
+                                <span class="hero-meta-label">University</span>
+                                <span class="hero-meta-value">NIT Surat</span>
+                            </div>
+                            <div class="hero-meta-item">
+                                <span class="hero-meta-label">Resume</span>
+                                <span class="hero-meta-value"><a href="javascript:void(0)" onclick="openResume()">View
+                                        resume</a></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Featured Projects -->
+    <div class="container">
+        <hr class="section-divider">
+    </div>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Selected work</h2>
+            </div>
+
+            <div class="grid grid-12 reveal-stagger">
+
+                <!-- Featured: Neural Engine -->
+                <a href="project_1.html" class="col-span-8 card card-link card-featured reveal">
+                    <div class="card-label">VLSI / ML</div>
+                    <h3>FPGA Neural Engine</h3>
+                    <p>A specialized silicon IP for high-throughput tensor operations, implementing a 5-stage decoupled
+                        vector-scalar module for efficient inference.</p>
+                    <div class="stat-row">
+                        <div class="stat-item">
+                            <span class="stat-label">Latency</span>
+                            <span class="stat-value">1.2 ns</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Power</span>
+                            <span class="stat-value">45 mW</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Accuracy</span>
+                            <span class="stat-value">99.2%</span>
+                        </div>
+                    </div>
+                    <span class="card-arrow">View project →</span>
+                </a>
+
+                <!-- Side stack -->
+                <div class="col-span-4 grid" style="grid-template-rows: 1fr 1fr;">
+                    <a href="project_2.html" class="card card-link reveal">
+                        <div class="card-label">Neuromorphic</div>
+                        <h4>RISC-V Core</h4>
+                        <p>Custom 32-bit implementation with hardware security extensions.</p>
+                        <span class="card-arrow">View project →</span>
+                    </a>
+
+                    <a href="project_3.html" class="card card-link reveal">
+                        <div class="card-label">RF / Analog</div>
+                        <h4>Mixed-Signal IC</h4>
+                        <p>Precision analog bridge with multi-phase interleaving logic.</p>
+                        <span class="card-arrow">View project →</span>
+                    </a>
+                </div>
+
+                <!-- All projects CTA -->
+                <div class="col-span-12 reveal"
+                    style="display: flex; align-items: center; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 8px;">
+                    <div>
+                        <h4>All projects</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px;">RTL designs, ASIC
+                            layouts, and neural hardware.</p>
+                    </div>
+                    <a href="projects.html" class="btn">View all →</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Impact Stats (uncomment when ready)
+    <div class="container">
+        <hr class="section-divider">
+    </div>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="impact-stats reveal-stagger">
+                <div class="impact-stat reveal">
+                    <div class="impact-number" data-count="3" data-suffix="+">0</div>
+                    <div class="impact-label">Hardware projects</div>
+                </div>
+                <div class="impact-stat reveal">
+                    <div class="impact-number" data-count="2">0</div>
+                    <div class="impact-label">Publications</div>
+                </div>
+                <div class="impact-stat reveal">
+                    <div class="impact-number" data-count="8" data-suffix=".1">0</div>
+                    <div class="impact-label">CGPA at NIT Surat</div>
+                </div>
+                <div class="impact-stat reveal">
+                    <div class="impact-number" data-count="99" data-suffix="%">0</div>
+                    <div class="impact-label">Accelerator accuracy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+
+    <!-- Section: Experience (uncomment when ready)
+    <div class="container">
+        <hr class="section-divider">
+    </div>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Experience</h2>
+            </div>
+
+            <div class="grid grid-12">
+                <div class="col-span-7">
+                    <div class="timeline reveal-stagger">
+                        <div class="timeline-item reveal">
+                            <div class="timeline-date">2024 — Present</div>
+                            <h4>NIT Surat</h4>
+                            <div class="timeline-role">B.Tech Electronics Engineering</div>
+                            <p>Specializing in VLSI design and hardware-accelerated machine learning. Research focus on neuromorphic SNN architectures and RISC-V vector extensions.</p>
+                        </div>
+                        <div class="timeline-item reveal">
+                            <div class="timeline-date">2024</div>
+                            <h4>FPGA Neural Accelerator</h4>
+                            <div class="timeline-role">Lead Hardware Designer</div>
+                            <p>Designed and implemented a 5-stage decoupled vector-scalar accelerator achieving 15x inference speedup over baseline CPU architectures.</p>
+                        </div>
+                        <div class="timeline-item reveal">
+                            <div class="timeline-date">2023</div>
+                            <h4>IEEE VLSID Publication</h4>
+                            <div class="timeline-role">First Author</div>
+                            <p>Published novel decoupling mechanism reducing pipeline stalls by 42% in real-time SNN inference workloads.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-5">
+                    <div class="section-header reveal">
+                        <h3>Achievements</h3>
+                    </div>
+                    <div class="achievements reveal-stagger">
+                        <div class="achievement-card reveal">
+                            <div class="achievement-icon">📄</div>
+                            <div class="achievement-text">
+                                <h4>IEEE Publication</h4>
+                                <p>Published at VLSID 2024 — top-tier VLSI conference</p>
+                            </div>
+                        </div>
+                        <div class="achievement-card reveal">
+                            <div class="achievement-icon">⚡</div>
+                            <div class="achievement-text">
+                                <h4>15x Inference Speedup</h4>
+                                <p>Custom RISC-V vector accelerator vs baseline CPU</p>
+                            </div>
+                        </div>
+                        <div class="achievement-card reveal">
+                            <div class="achievement-icon">🏆</div>
+                            <div class="achievement-text">
+                                <h4>8.10 CGPA</h4>
+                                <p>NIT Surat — Electronics Engineering</p>
+                            </div>
+                        </div>
+                        <div class="achievement-card reveal">
+                            <div class="achievement-icon">🔬</div>
+                            <div class="achievement-text">
+                                <h4>Sub-μW SNN Core</h4>
+                                <p>12 μW neuromorphic processor for edge AI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+
+    <!-- Section: Research (uncomment when ready)
+    <div class="container">
+        <hr class="section-divider">
+    </div>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Research & exploration</h2>
+            </div>
+
+            <div class="grid grid-2 reveal-stagger">
+                <a href="system_architecture.html" class="card card-link reveal">
+                    <h3>Architecture topology</h3>
+                    <p>Visualizing the integration of VLSI, ML, and RF abstraction layers.</p>
+                    <span class="card-arrow">Explore →</span>
+                </a>
+                <a href="research_publications.html" class="card card-link reveal">
+                    <h3>Publications</h3>
+                    <p>Deep dives into ASIC implementation and neural hardware papers.</p>
+                    <span class="card-arrow">Read →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    -->
+
+    <!-- Section: Philosophy -->
+    <div class="container">
+        <hr class="section-divider">
+    </div>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="callout reveal">
+                <h2>"Hardware that anticipates intelligence at the gate level."</h2>
+                <p>I believe in engineering that balances mathematical constraints with physical optimization — systems
+                    that don't just process data, but understand it.</p>
+                <a href="about.html" class="btn">More about me →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Contact -->
+    <div class="container">
+        <hr class="section-divider">
+    </div>
+
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Let's build something <em>meaningful.</em></h2>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-links reveal">
+                    <a href="mailto:heyvineetjethani@gmail.com" class="contact-link">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        <span>heyvineetjethani@gmail.com</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/heyvineet" target="_blank" class="contact-link">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                        </svg>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://www.instagram.com/the.vineet07" target="_blank" class="contact-link">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+
+                <form class="contact-form reveal" action="https://formspree.io/f/xrgwjqpb" method="POST">
+                    <input type="text" name="name" placeholder="Your name" required>
+                    <input type="email" name="email" placeholder="Your email" required>
+                    <textarea name="message" placeholder="Your message..." required></textarea>
+                    <button type="submit" class="btn btn-primary">Send message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+
+                    <div style="flex-grow: 1;"></div>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">
+                            Download PDF
+                        </button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">
+                            Print
+                        </button>
+                    </div>
+                </aside>
+
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

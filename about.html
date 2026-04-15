@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Vineet Jethani</title>
+    <meta name="description" content="How Vineet Jethani approaches hardware design — from problem decomposition to gate-level optimization.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="about.html" class="active">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="contact.html">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <main class="container">
+        <div class="paper-content" style="max-width: 900px;">
+
+            <div class="page-header reveal">
+                <span class="label">About</span>
+                <h1>How I think</h1>
+                <p>Translating raw complexity into elegant hardware logic.</p>
+            </div>
+
+            <!-- Process Steps -->
+            <section class="reveal-stagger">
+                <div class="step-card reveal">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Problem decomposition</h3>
+                        <p>Breaking down complex system requirements into discrete mathematical and logical constraints. Identifying throughput bottlenecks and power envelopes.</p>
+                    </div>
+                </div>
+
+                <div class="step-connector"></div>
+
+                <div class="step-card reveal">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Architectural synthesis</h3>
+                        <p>Drafting the high-level datapath and control units. Balancing latency vs. area in VLSI design or deciding on neural network pruning strategies.</p>
+                    </div>
+                </div>
+
+                <div class="step-connector"></div>
+
+                <div class="step-card reveal">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Gate-level optimization</h3>
+                        <p>The final implementation sweep. Refining RTL for timing closure, reducing switching activity, and ensuring robust signal integrity across the chip.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Competencies -->
+            <section class="mt-section">
+                <div class="section-header reveal">
+                    <h2>Core competencies</h2>
+                </div>
+                <div class="grid grid-2 reveal-stagger" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                    <div class="card reveal" style="padding: 24px;">
+                        <h4>ASIC Design</h4>
+                    </div>
+                    <div class="card reveal" style="padding: 24px;">
+                        <h4>Verilog HDL</h4>
+                    </div>
+                    <div class="card reveal" style="padding: 24px;">
+                        <h4>PyTorch / SNN</h4>
+                    </div>
+                    <div class="card reveal" style="padding: 24px;">
+                        <h4>Analog IC</h4>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                    </div>
+                </aside>
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

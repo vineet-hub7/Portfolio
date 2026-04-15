@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADC Interface — Vineet Jethani</title>
+    <meta name="description" content="High-Speed ADC Interface for RF Telemetry — precision analog-to-digital bridge with multi-phase interleaving.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="contact.html">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <main class="container">
+        <div class="paper-content">
+
+            <a href="projects.html" class="back-link reveal">← Back to projects</a>
+
+            <header class="paper-header reveal">
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 03</span>
+                <h1>High-Speed ADC Interface for RF Telemetry</h1>
+                <p>Precision analog-to-digital bridge with multi-phase interleaving logic.</p>
+            </header>
+
+            <!-- Abstract -->
+            <section class="paper-section reveal">
+                <h2>Abstract</h2>
+                <p>High-frequency RF capture requires precision timing and massive data bandwidth. This project implements a hybrid signal interface bridge that manages 8-way interleaved ADC cores. By implementing digital calibration logic directly in the FPGA fabric, we mitigate interleaving artifacts and noise spurs.</p>
+            </section>
+
+            <!-- System Flow -->
+            <section class="paper-section reveal">
+                <h2>System flow</h2>
+                <div class="diagram-box">
+                    <div class="diagram-label">Hybrid signal pathway</div>
+                    <div class="diagram-flow">
+                        <div class="diagram-node">Analog In</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node active">ADC Bridge</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Digital Out</div>
+                    </div>
+                </div>
+                <p>The interface supports up to 5 GSPS (Giga Samples Per Second) by distributed clock phases. A custom JESD204B-like protocol layer was implemented to deserialize the high-speed data stream into internal 256-bit buses.</p>
+            </section>
+
+            <!-- Metrics -->
+            <section class="paper-section reveal">
+                <h2>Metrics</h2>
+                <div class="result-cards" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="result-card">
+                        <div class="label">Signal Integrity</div>
+                        <div class="value">72 dB SNR</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Throughput</div>
+                        <div class="value">40 Gbps</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                    </div>
+                </aside>
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

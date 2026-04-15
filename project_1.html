@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISC-V Vector Accelerator — Vineet Jethani</title>
+    <meta name="description" content="Technical report on a RISC-V vector accelerator for ML kernel inference, featuring a 5-stage decoupled pipeline.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="contact.html">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <main class="container">
+        <div class="paper-content">
+
+            <a href="projects.html" class="back-link reveal">← Back to projects</a>
+
+            <header class="paper-header reveal">
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 01</span>
+                <h1>RISC-V Vector Accelerator for ML Kernels</h1>
+                <p>Architecting a decoupled vector-scalar module for silicon-efficient inference.</p>
+            </header>
+
+            <!-- Abstract -->
+            <section class="paper-section reveal">
+                <h2>Abstract</h2>
+                <p>Traditional CPU architectures struggle with the data-parallel nature of modern machine learning workloads. This project presents a RISC-V compatible vector accelerator implementation designed for native integration into a 5-stage pipeline. By offloading SIMD operations to a dedicated vector unit, we achieve significant throughput gains while maintaining a low silicon area footprint.</p>
+            </section>
+
+            <!-- Architecture -->
+            <section class="paper-section reveal">
+                <h2>Architecture</h2>
+                <div class="diagram-box">
+                    <div class="diagram-label">High-level block diagram</div>
+                    <div class="diagram-flow">
+                        <div class="diagram-node">Fetch</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Decode</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node active">Vector Unit</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Writeback</div>
+                    </div>
+                </div>
+                <p>The system utilizes a decoupled interface between the scalar core and the vector accelerator. This allows the scalar unit to continue fetching and issuing commands while the vector unit processes large tensor blocks in parallel.</p>
+            </section>
+
+            <!-- Signal Flow -->
+            <section class="paper-section reveal">
+                <h2>Signal flow & optimization</h2>
+                <div class="grid grid-2" style="gap: 32px; margin-bottom: 24px;">
+                    <div>
+                        <h4 style="margin-bottom: 8px;">Pipeline sync</h4>
+                        <p>Implementation of a stall-free arbiter to manage data dependencies between scalar GPRs and vector VRFs.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 8px;">Memory subsystem</h4>
+                        <p>Development of a strided-access load/store unit to maximize bandwidth during matrix multiplication kernels.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results -->
+            <section class="paper-section reveal">
+                <h2>Experimental results</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>Metric</th>
+                        <th>Baseline</th>
+                        <th>Accelerator</th>
+                    </tr>
+                    <tr>
+                        <td>Inference Time</td>
+                        <td>345 ms</td>
+                        <td class="highlight">22 ms</td>
+                    </tr>
+                    <tr>
+                        <td>Power Efficiency</td>
+                        <td>1.2 GFLOPS/W</td>
+                        <td class="highlight">8.4 GFLOPS/W</td>
+                    </tr>
+                    <tr>
+                        <td>Area (TSMC 28nm)</td>
+                        <td>0.4 mm²</td>
+                        <td class="highlight">0.62 mm²</td>
+                    </tr>
+                </table>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                    </div>
+                </aside>
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

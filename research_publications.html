@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research — Vineet Jethani</title>
+    <meta name="description" content="Research publications by Vineet Jethani in hardware acceleration and neural compute architectures.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="contact.html">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <div class="spacer-nav"></div>
+
+    <main class="container page-section">
+
+        <div class="page-header reveal">
+            <span class="label">Research</span>
+            <h1>Publications</h1>
+            <p>Peer-reviewed contributions to hardware acceleration and neural compute architectures.</p>
+        </div>
+
+        <section class="reveal-stagger" style="max-width: 800px;">
+
+            <!-- Publication 01 -->
+            <article class="pub-card reveal">
+                <div class="pub-meta">IEEE International Conference on VLSI Design (2024)</div>
+                <h3 class="pub-title">Decoupled Vector-Scalar Subsystems for Sparse Neural Acceleration</h3>
+                <p class="pub-abstract">This paper presents a novel decoupling mechanism that isolates sparse vector operations from standard scalar pipelines. By implementing a predictive arbiter, we minimize pipeline stalls by 42% in real-time SNN inference workloads.</p>
+                <div class="pub-actions">
+                    <a href="#" style="font-size: 0.85rem;">Download PDF</a>
+                    <button class="bibtex-btn" onclick="navigator.clipboard.writeText('@article{jethani2024decoupled,\n  title={Decoupled Vector-Scalar Subsystems},\n  author={Jethani, Vineet},\n  journal={VLSID},\n  year={2024}\n}').then(() => this.textContent = 'Copied!').catch(() => alert('@article{jethani2024decoupled,\n  title={Decoupled Vector-Scalar Subsystems},\n  author={Jethani, Vineet},\n  journal={VLSID},\n  year={2024}\n}'))">Copy BibTeX</button>
+                </div>
+            </article>
+
+            <!-- Publication 02 -->
+            <article class="pub-card reveal">
+                <div class="pub-meta">Journal of Low Power Electronics (2023)</div>
+                <h3 class="pub-title">Low-Power Asynchronous Arches for Edge-AI Transceivers</h3>
+                <p class="pub-abstract">Analysis of asynchronous logic gates in high-frequency RF transceivers. We achieve sub-10μW power consumption during idle states while maintaining sub-ns wakeup latency for asynchronous events.</p>
+                <div class="pub-actions">
+                    <a href="#" style="font-size: 0.85rem;">Download PDF</a>
+                    <button class="bibtex-btn" onclick="navigator.clipboard.writeText('@article{jethani2023lowpower,\n  title={Low-Power Asynchronous Arches},\n  author={Jethani, Vineet},\n  journal={JLPE},\n  year={2023}\n}').then(() => this.textContent = 'Copied!').catch(() => alert('@article{jethani2023lowpower,\n  title={Low-Power Asynchronous Arches},\n  author={Jethani, Vineet},\n  journal={JLPE},\n  year={2023}\n}'))">Copy BibTeX</button>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                    </div>
+                </aside>
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

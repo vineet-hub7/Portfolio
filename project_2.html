@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNN Core — Vineet Jethani</title>
+    <meta name="description" content="Neuromorphic SNN Core for Edge AI — asynchronous event-driven hardware for ultra-low power neuromorphic compute.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="contact.html">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <main class="container">
+        <div class="paper-content">
+
+            <a href="projects.html" class="back-link reveal">← Back to projects</a>
+
+            <header class="paper-header reveal">
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 02</span>
+                <h1>Neuromorphic SNN Core for Edge AI</h1>
+                <p>Asynchronous event-driven hardware for ultra-low power neuromorphic compute.</p>
+            </header>
+
+            <!-- Abstract -->
+            <section class="paper-section reveal">
+                <h2>Abstract</h2>
+                <p>Edge devices operating on energy-harvesting sources require milliwatt-scale intelligence. This project explores the implementation of a Spiking Neural Network (SNN) core that processes data only upon asynchronous "events" or spikes, drastically reducing switching activity compared to synchronous clock-based architectures.</p>
+            </section>
+
+            <!-- Architecture -->
+            <section class="paper-section reveal">
+                <h2>Architecture</h2>
+                <div class="diagram-box">
+                    <div class="diagram-label">Asynchronous spoke-wheel arbiter</div>
+                    <div style="margin: 24px auto; width: 120px; height: 120px; border: 2px dashed var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div style="position: absolute; width: 100%; height: 1px; background: var(--accent); opacity: 0.4; transform: rotate(45deg);"></div>
+                        <div style="position: absolute; width: 100%; height: 1px; background: var(--accent); opacity: 0.4; transform: rotate(-45deg);"></div>
+                        <span class="mono" style="background: var(--bg-elevated); padding: 4px 8px; z-index: 2; font-size: 0.7rem;">Crossbar</span>
+                    </div>
+                </div>
+                <p>The core utilizes a mesh-based interconnect of Integrate-and-Fire neurons. Weights are stored in a compressed SRAM array, utilizing the high sparsity of SNN activations to bypass redundant memory reads.</p>
+            </section>
+
+            <!-- Results -->
+            <section class="paper-section reveal">
+                <h2>Results</h2>
+                <div class="result-cards">
+                    <div class="result-card">
+                        <div class="label">Energy Efficiency</div>
+                        <div class="value">12 pJ/SOI</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Latency</div>
+                        <div class="value">0.8 ms</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Chip Area</div>
+                        <div class="value">0.15 mm²</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                    </div>
+                </aside>
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

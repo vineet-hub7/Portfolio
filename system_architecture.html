@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture — Vineet Jethani</title>
+    <meta name="description" content="System architecture topology — cross-domain integration of VLSI, ML, and RF modules.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="contact.html">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <div class="spacer-nav"></div>
+
+    <main class="container page-section">
+
+        <div class="page-header reveal" style="text-align: center;">
+            <span class="label">Architecture</span>
+            <h1>System topology</h1>
+            <p style="margin-left: auto; margin-right: auto;">Cross-domain integration of VLSI, ML, and RF modules.</p>
+        </div>
+
+        <!-- Architecture Node Flow -->
+        <div class="arch-nodes reveal-stagger">
+            <div class="arch-node reveal">
+                <div class="node-label">Source</div>
+                <h4>Signal Input</h4>
+            </div>
+
+            <div class="arch-connector reveal">→</div>
+
+            <div class="arch-node reveal" style="border-color: var(--accent);">
+                <div class="node-label">Core Processor</div>
+                <h4>RISC-V Vector</h4>
+            </div>
+
+            <div class="arch-connector reveal">→</div>
+
+            <div class="arch-node reveal">
+                <div class="node-label">Accelerator</div>
+                <h4>SNN Core</h4>
+            </div>
+
+            <div class="arch-connector reveal">→</div>
+
+            <div class="arch-node reveal">
+                <div class="node-label">I/O</div>
+                <h4>ADC Bridge</h4>
+            </div>
+        </div>
+
+        <div class="reveal" style="text-align: center; margin-top: 48px;">
+            <p style="color: var(--text-muted); font-size: 0.85rem;">This diagram shows the high-level signal flow between major hardware subsystems.</p>
+        </div>
+
+        <!-- Connections to projects -->
+        <section class="mt-section">
+            <div class="section-header reveal" style="text-align: center;">
+                <h2>Explore each module</h2>
+            </div>
+
+            <div class="grid grid-3 reveal-stagger" style="max-width: 900px; margin: 0 auto;">
+                <a href="project_1.html" class="card card-link reveal" style="text-align: center; padding: 28px;">
+                    <h4>RISC-V Accelerator</h4>
+                    <span class="card-arrow" style="justify-content: center;">View →</span>
+                </a>
+                <a href="project_2.html" class="card card-link reveal" style="text-align: center; padding: 28px;">
+                    <h4>SNN Core</h4>
+                    <span class="card-arrow" style="justify-content: center;">View →</span>
+                </a>
+                <a href="project_3.html" class="card card-link reveal" style="text-align: center; padding: 28px;">
+                    <h4>ADC Interface</h4>
+                    <span class="card-arrow" style="justify-content: center;">View →</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2026 Vineet Jethani</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">GPA</div>
+                        <div class="metric-value">8.10 CGPA</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Focus Areas</div>
+                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                    </div>
+                    <div style="flex-grow: 1;"></div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                    </div>
+                </aside>
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text" id="loader-status">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
