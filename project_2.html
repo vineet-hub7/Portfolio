@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SNN Core — Vineet Jethani</title>
-    <meta name="description" content="Neuromorphic SNN Core for Edge AI — asynchronous event-driven hardware for ultra-low power neuromorphic compute.">
+    <title>AsyncLink PHY — Vineet Jethani</title>
+    <meta name="description" content="UART Transmitter — configurable serial communication PHY implemented in Verilog with baud rate generator, parity, and FSM control.">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -31,48 +31,83 @@
             <a href="projects.html" class="back-link reveal">← Back to projects</a>
 
             <header class="paper-header reveal">
-                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 02</span>
-                <h1>Neuromorphic SNN Core for Edge AI</h1>
-                <p>Asynchronous event-driven hardware for ultra-low power neuromorphic compute.</p>
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 02 · Digital / Communication</span>
+                <h1>AsyncLink PHY</h1>
+                <p>A fully configurable UART transmitter module designed in Verilog — asynchronous serial communication from first principles.</p>
             </header>
 
             <!-- Abstract -->
             <section class="paper-section reveal">
                 <h2>Abstract</h2>
-                <p>Edge devices operating on energy-harvesting sources require milliwatt-scale intelligence. This project explores the implementation of a Spiking Neural Network (SNN) core that processes data only upon asynchronous "events" or spikes, drastically reducing switching activity compared to synchronous clock-based architectures.</p>
+                <p>Serial communication remains the backbone of embedded systems — from sensor interfaces to debug consoles. AsyncLink PHY is a ground-up Verilog implementation of a UART transmitter with configurable baud rate, data width, and parity. The design emphasizes clean FSM architecture, precise bit-level timing, and synthesizability for both FPGA and ASIC targets.</p>
             </section>
 
             <!-- Architecture -->
             <section class="paper-section reveal">
                 <h2>Architecture</h2>
                 <div class="diagram-box">
-                    <div class="diagram-label">Asynchronous spoke-wheel arbiter</div>
-                    <div style="margin: 24px auto; width: 120px; height: 120px; border: 2px dashed var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
-                        <div style="position: absolute; width: 100%; height: 1px; background: var(--accent); opacity: 0.4; transform: rotate(45deg);"></div>
-                        <div style="position: absolute; width: 100%; height: 1px; background: var(--accent); opacity: 0.4; transform: rotate(-45deg);"></div>
-                        <span class="mono" style="background: var(--bg-elevated); padding: 4px 8px; z-index: 2; font-size: 0.7rem;">Crossbar</span>
+                    <div class="diagram-label">Transmitter data path</div>
+                    <div class="diagram-flow">
+                        <div class="diagram-node">Data Register</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node active">Baud Generator</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Shift Register</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">TX Line</div>
                     </div>
                 </div>
-                <p>The core utilizes a mesh-based interconnect of Integrate-and-Fire neurons. Weights are stored in a compressed SRAM array, utilizing the high sparsity of SNN activations to bypass redundant memory reads.</p>
+                <div class="grid grid-2" style="gap: 32px; margin-top: 24px;">
+                    <div>
+                        <h4 style="margin-bottom: 8px;">FSM control</h4>
+                        <p>The transmitter operates through four states: IDLE → START → DATA → STOP. A clean Mealy-type FSM manages transitions, ensuring the start bit, data bits (LSB-first), optional parity bit, and stop bit(s) are serialized with cycle-accurate timing.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 8px;">Baud rate generator</h4>
+                        <p>A programmable clock divider derives the baud tick from the system clock. Supporting standard rates from 9600 to 115200 baud, the divider uses a counter-based approach to produce symmetrical bit periods regardless of the input clock frequency.</p>
+                    </div>
+                </div>
             </section>
 
-            <!-- Results -->
+            <!-- Technical specs -->
             <section class="paper-section reveal">
-                <h2>Results</h2>
-                <div class="result-cards">
-                    <div class="result-card">
-                        <div class="label">Energy Efficiency</div>
-                        <div class="value">12 pJ/SOI</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="label">Latency</div>
-                        <div class="value">0.8 ms</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="label">Chip Area</div>
-                        <div class="value">0.15 mm²</div>
-                    </div>
-                </div>
+                <h2>Technical details</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>HDL</td>
+                        <td>Verilog</td>
+                    </tr>
+                    <tr>
+                        <td>Data width</td>
+                        <td>Configurable (5–9 bits)</td>
+                    </tr>
+                    <tr>
+                        <td>Baud rates</td>
+                        <td>9600 / 19200 / 115200</td>
+                    </tr>
+                    <tr>
+                        <td>Parity</td>
+                        <td>None / Even / Odd (selectable)</td>
+                    </tr>
+                    <tr>
+                        <td>Stop bits</td>
+                        <td>1 or 2</td>
+                    </tr>
+                    <tr>
+                        <td>Verification</td>
+                        <td>Testbench simulation + FPGA validation</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Design philosophy -->
+            <section class="paper-section reveal">
+                <h2>Design philosophy</h2>
+                <p>Building a UART from scratch isn't about reinventing what already exists — it's about deeply understanding how digital systems manage time without a shared clock. Every design decision here, from the oversampling strategy to the FSM encoding, was made with synthesizability and timing closure in mind. This is the kind of fundamental IP that underpins every SoC, and getting it right at the RTL level builds the intuition needed for more complex protocol engines.</p>
             </section>
 
         </div>

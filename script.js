@@ -20,73 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ==========================================================================
-       HERO TEXT SCRAMBLE — Letters shuffle in on load
-       ========================================================================== */
-    const scrambleElements = document.querySelectorAll('.scramble-text');
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-
-    scrambleElements.forEach(el => {
-        const originalText = el.textContent;
-        const duration = 800; // ms
-        const startTime = performance.now();
-
-        function animate(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-
-            let result = '';
-            for (let i = 0; i < originalText.length; i++) {
-                if (originalText[i] === ' ') {
-                    result += ' ';
-                } else if (i / originalText.length < progress) {
-                    result += originalText[i];
-                } else {
-                    result += chars[Math.floor(Math.random() * chars.length)];
-                }
-            }
-            el.textContent = result;
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                el.textContent = originalText;
-            }
-        }
-
-        // Small delay for the page to settle
-        setTimeout(() => requestAnimationFrame(animate), 300);
-    });
-
-    /* ==========================================================================
-       MAGNETIC HOVER — Cards subtly shift toward cursor
-       ========================================================================== */
-    const magneticCards = document.querySelectorAll('.card');
-
-    magneticCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            // Very subtle shift: max 4px
-            const moveX = (x / rect.width) * 8;
-            const moveY = (y / rect.height) * 8;
-
-            card.style.transform = `translateY(-4px) translate(${moveX}px, ${moveY}px)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-        });
-    });
-
-    /* ==========================================================================
        SMOOTH SCROLL PROGRESS — Thin line at top of page
        ========================================================================== */
     const progressBar = document.createElement('div');
     progressBar.style.cssText = `
-        position: fixed; top: 0; left: 0; height: 2px; z-index: 1001;
-        background: var(--accent); width: 0%; transition: width 0.1s linear;
+        position: fixed; top: 0; left: 0; height: 1px; z-index: 1001;
+        background: var(--border); width: 0%; transition: width 0.1s linear;
         pointer-events: none;
     `;
     document.body.appendChild(progressBar);

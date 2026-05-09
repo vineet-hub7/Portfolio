@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RISC-V Vector Accelerator — Vineet Jethani</title>
-    <meta name="description" content="Technical report on a RISC-V vector accelerator for ML kernel inference, featuring a 5-stage decoupled pipeline.">
+    <title>NeuroSentinel Core — Vineet Jethani</title>
+    <meta name="description" content="EEG-based seizure detection engine using Spiking Neural Networks — real-time neuromorphic signal classification on hardware.">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -31,75 +31,83 @@
             <a href="projects.html" class="back-link reveal">← Back to projects</a>
 
             <header class="paper-header reveal">
-                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 01</span>
-                <h1>RISC-V Vector Accelerator for ML Kernels</h1>
-                <p>Architecting a decoupled vector-scalar module for silicon-efficient inference.</p>
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 01 · Neuromorphic / BioSignal</span>
+                <h1>NeuroSentinel Core</h1>
+                <p>Real-time seizure detection engine built on Spiking Neural Networks, processing raw EEG signals through biologically-inspired spike encoding and temporal pattern recognition.</p>
             </header>
 
             <!-- Abstract -->
             <section class="paper-section reveal">
                 <h2>Abstract</h2>
-                <p>Traditional CPU architectures struggle with the data-parallel nature of modern machine learning workloads. This project presents a RISC-V compatible vector accelerator implementation designed for native integration into a 5-stage pipeline. By offloading SIMD operations to a dedicated vector unit, we achieve significant throughput gains while maintaining a low silicon area footprint.</p>
+                <p>Epileptic seizure detection demands sub-second latency with high sensitivity — a challenge for conventional deep learning models running on power-hungry GPUs. NeuroSentinel takes a different approach: it encodes raw EEG channel data into sparse spike trains and feeds them through a Spiking Neural Network that mimics biological neural dynamics. The result is a lightweight, event-driven classifier that can distinguish ictal (seizure) from inter-ictal (normal) brain states in real time, making it suitable for wearable and implantable neurodevices.</p>
             </section>
 
-            <!-- Architecture -->
+            <!-- How it works -->
             <section class="paper-section reveal">
-                <h2>Architecture</h2>
+                <h2>How it works</h2>
                 <div class="diagram-box">
-                    <div class="diagram-label">High-level block diagram</div>
+                    <div class="diagram-label">Signal processing pipeline</div>
                     <div class="diagram-flow">
-                        <div class="diagram-node">Fetch</div>
+                        <div class="diagram-node">EEG Input</div>
                         <div class="diagram-connector"></div>
-                        <div class="diagram-node">Decode</div>
+                        <div class="diagram-node">Spike Encoding</div>
                         <div class="diagram-connector"></div>
-                        <div class="diagram-node active">Vector Unit</div>
+                        <div class="diagram-node active">SNN Inference</div>
                         <div class="diagram-connector"></div>
-                        <div class="diagram-node">Writeback</div>
+                        <div class="diagram-node">Classification</div>
                     </div>
                 </div>
-                <p>The system utilizes a decoupled interface between the scalar core and the vector accelerator. This allows the scalar unit to continue fetching and issuing commands while the vector unit processes large tensor blocks in parallel.</p>
-            </section>
-
-            <!-- Signal Flow -->
-            <section class="paper-section reveal">
-                <h2>Signal flow & optimization</h2>
-                <div class="grid grid-2" style="gap: 32px; margin-bottom: 24px;">
+                <div class="grid grid-2" style="gap: 32px; margin-top: 24px;">
                     <div>
-                        <h4 style="margin-bottom: 8px;">Pipeline sync</h4>
-                        <p>Implementation of a stall-free arbiter to manage data dependencies between scalar GPRs and vector VRFs.</p>
+                        <h4 style="margin-bottom: 8px;">Spike encoding</h4>
+                        <p>Raw EEG voltage traces are converted into temporal spike patterns using rate coding. Each electrode channel maps to a neuron input — high-amplitude activity produces denser spike trains, preserving the temporal structure that traditional FFT-based approaches discard.</p>
                     </div>
                     <div>
-                        <h4 style="margin-bottom: 8px;">Memory subsystem</h4>
-                        <p>Development of a strided-access load/store unit to maximize bandwidth during matrix multiplication kernels.</p>
+                        <h4 style="margin-bottom: 8px;">SNN classification</h4>
+                        <p>The encoded spikes propagate through layers of Leaky Integrate-and-Fire (LIF) neurons. Unlike conventional ANNs, computation only happens when spikes arrive — no spike, no energy spent. The network learns seizure-specific temporal signatures during training via surrogate gradient descent.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Results -->
+            <!-- Technical details -->
             <section class="paper-section reveal">
-                <h2>Experimental results</h2>
+                <h2>Technical details</h2>
                 <table class="data-table">
                     <tr>
-                        <th>Metric</th>
-                        <th>Baseline</th>
-                        <th>Accelerator</th>
+                        <th>Parameter</th>
+                        <th>Value</th>
                     </tr>
                     <tr>
-                        <td>Inference Time</td>
-                        <td>345 ms</td>
-                        <td class="highlight">22 ms</td>
+                        <td>Input channels</td>
+                        <td>23 EEG electrodes (10-20 system)</td>
                     </tr>
                     <tr>
-                        <td>Power Efficiency</td>
-                        <td>1.2 GFLOPS/W</td>
-                        <td class="highlight">8.4 GFLOPS/W</td>
+                        <td>Neuron model</td>
+                        <td>Leaky Integrate-and-Fire (LIF)</td>
                     </tr>
                     <tr>
-                        <td>Area (TSMC 28nm)</td>
-                        <td>0.4 mm²</td>
-                        <td class="highlight">0.62 mm²</td>
+                        <td>Network topology</td>
+                        <td>3-layer feedforward SNN</td>
+                    </tr>
+                    <tr>
+                        <td>Encoding scheme</td>
+                        <td>Rate coding with temporal binning</td>
+                    </tr>
+                    <tr>
+                        <td>Training method</td>
+                        <td>Surrogate gradient backprop (snnTorch)</td>
+                    </tr>
+                    <tr>
+                        <td>Dataset</td>
+                        <td>CHB-MIT Scalp EEG Database</td>
                     </tr>
                 </table>
+            </section>
+
+            <!-- Why it matters -->
+            <section class="paper-section reveal">
+                <h2>Why it matters</h2>
+                <p>Traditional seizure detection relies on bulky models that need cloud processing. SNNs offer a path toward on-device, always-on monitoring with orders-of-magnitude lower power consumption. This project demonstrates that biologically-plausible neural computation isn't just theoretically interesting — it's practically viable for safety-critical medical applications where every millisecond of detection latency matters.</p>
             </section>
 
         </div>

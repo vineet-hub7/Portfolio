@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADC Interface — Vineet Jethani</title>
-    <meta name="description" content="High-Speed ADC Interface for RF Telemetry — precision analog-to-digital bridge with multi-phase interleaving.">
+    <title>WaveShield RF — Vineet Jethani</title>
+    <meta name="description" content="2G GSM Signal Jammer — RF interference generator targeting 900/1800 MHz GSM bands using VCO-driven sweep oscillation.">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -31,46 +31,83 @@
             <a href="projects.html" class="back-link reveal">← Back to projects</a>
 
             <header class="paper-header reveal">
-                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 03</span>
-                <h1>High-Speed ADC Interface for RF Telemetry</h1>
-                <p>Precision analog-to-digital bridge with multi-phase interleaving logic.</p>
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 03 · RF / Analog</span>
+                <h1>WaveShield RF</h1>
+                <p>A 2G GSM signal jammer — swept-frequency RF interference generator targeting the 900 MHz and 1800 MHz cellular bands.</p>
             </header>
 
             <!-- Abstract -->
             <section class="paper-section reveal">
                 <h2>Abstract</h2>
-                <p>High-frequency RF capture requires precision timing and massive data bandwidth. This project implements a hybrid signal interface bridge that manages 8-way interleaved ADC cores. By implementing digital calibration logic directly in the FPGA fabric, we mitigate interleaving artifacts and noise spurs.</p>
+                <p>Mobile communication depends on a clean RF link between the handset and the base station. WaveShield RF disrupts this link by generating wideband noise across the GSM-900 and GSM-1800 frequency bands. Using a voltage-controlled oscillator (VCO) driven by a sawtooth sweep generator, the system produces continuous swept interference that prevents mobile devices within range from establishing or maintaining a cellular connection. This project was built as an academic study of RF interference fundamentals and spectrum denial techniques.</p>
             </section>
 
-            <!-- System Flow -->
+            <!-- System architecture -->
             <section class="paper-section reveal">
-                <h2>System flow</h2>
+                <h2>System architecture</h2>
                 <div class="diagram-box">
-                    <div class="diagram-label">Hybrid signal pathway</div>
+                    <div class="diagram-label">RF signal chain</div>
                     <div class="diagram-flow">
-                        <div class="diagram-node">Analog In</div>
+                        <div class="diagram-node">Sweep Generator</div>
                         <div class="diagram-connector"></div>
-                        <div class="diagram-node active">ADC Bridge</div>
+                        <div class="diagram-node active">VCO</div>
                         <div class="diagram-connector"></div>
-                        <div class="diagram-node">Digital Out</div>
+                        <div class="diagram-node">RF Amplifier</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Antenna</div>
                     </div>
                 </div>
-                <p>The interface supports up to 5 GSPS (Giga Samples Per Second) by distributed clock phases. A custom JESD204B-like protocol layer was implemented to deserialize the high-speed data stream into internal 256-bit buses.</p>
+                <div class="grid grid-2" style="gap: 32px; margin-top: 24px;">
+                    <div>
+                        <h4 style="margin-bottom: 8px;">Sweep oscillator</h4>
+                        <p>A sawtooth waveform generator drives the VCO tuning voltage, causing the output frequency to sweep continuously across the target band. The sweep rate is chosen to ensure that no GSM time slot can complete a full frame without encountering interference.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 8px;">Power amplification</h4>
+                        <p>The VCO output is boosted through an RF power amplifier stage to achieve sufficient radiated power for local-area coverage. Band-pass filtering ensures energy stays within the target GSM bands, minimizing out-of-band emissions.</p>
+                    </div>
+                </div>
             </section>
 
-            <!-- Metrics -->
+            <!-- Technical specs -->
             <section class="paper-section reveal">
-                <h2>Metrics</h2>
-                <div class="result-cards" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="result-card">
-                        <div class="label">Signal Integrity</div>
-                        <div class="value">72 dB SNR</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="label">Throughput</div>
-                        <div class="value">40 Gbps</div>
-                    </div>
-                </div>
+                <h2>Technical details</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Target bands</td>
+                        <td>GSM-900 (890–960 MHz), GSM-1800 (1710–1880 MHz)</td>
+                    </tr>
+                    <tr>
+                        <td>Jamming method</td>
+                        <td>Swept-frequency wideband noise</td>
+                    </tr>
+                    <tr>
+                        <td>Oscillator</td>
+                        <td>Voltage-controlled oscillator (VCO)</td>
+                    </tr>
+                    <tr>
+                        <td>Sweep waveform</td>
+                        <td>Sawtooth (linear ramp)</td>
+                    </tr>
+                    <tr>
+                        <td>Power source</td>
+                        <td>DC regulated supply</td>
+                    </tr>
+                    <tr>
+                        <td>Purpose</td>
+                        <td>Academic study — RF interference principles</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- What I learned -->
+            <section class="paper-section reveal">
+                <h2>What I learned</h2>
+                <p>This project was about understanding RF from the ground up — how oscillators generate carrier frequencies, how amplifiers shape radiated power, and how cellular protocols like GSM handle (or fail to handle) interference. Working with analog RF circuits taught me things that simulation alone cannot: the reality of impedance matching, parasitic capacitance, and the difference between a schematic that works in LTspice and a PCB that actually radiates. These lessons directly inform my understanding of mixed-signal and communication system design.</p>
             </section>
 
         </div>
