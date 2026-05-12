@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroSentinel Core — Vineet Jethani</title>
-    <meta name="description" content="EEG-based seizure detection engine using Spiking Neural Networks — real-time neuromorphic signal classification on hardware.">
+    <title>EEG-Based Seizure Prediction using SNNs — Vineet Jethani</title>
+    <meta name="description" content="Real-time seizure detection using Spiking Neural Networks, neuromorphic computing on NVIDIA Jetson Nano.">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
             <a href="projects.html" class="active">Projects</a>
             <a href="about.html">About</a>
             <a href="javascript:void(0)" onclick="openResume()">Resume</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html#contact">Contact</a>
             <div class="nav-divider"></div>
             <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
         </div>
@@ -32,82 +32,156 @@
 
             <header class="paper-header reveal">
                 <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 01 · Neuromorphic / BioSignal</span>
-                <h1>NeuroSentinel Core</h1>
-                <p>Real-time seizure detection engine built on Spiking Neural Networks, processing raw EEG signals through biologically-inspired spike encoding and temporal pattern recognition.</p>
+                <h1>EEG-Based Seizure Prediction using Spiking Neural Networks</h1>
+                <p>Real-time seizure detection engine that processes raw EEG signals through biologically-inspired spike encoding and Leaky Integrate-and-Fire neurons, achieving 92.35% accuracy while consuming only 151.53 µJ per inference on edge hardware.</p>
             </header>
 
-            <!-- Abstract -->
+            <!-- Overview -->
             <section class="paper-section reveal">
-                <h2>Abstract</h2>
-                <p>Epileptic seizure detection demands sub-second latency with high sensitivity — a challenge for conventional deep learning models running on power-hungry GPUs. NeuroSentinel takes a different approach: it encodes raw EEG channel data into sparse spike trains and feeds them through a Spiking Neural Network that mimics biological neural dynamics. The result is a lightweight, event-driven classifier that can distinguish ictal (seizure) from inter-ictal (normal) brain states in real time, making it suitable for wearable and implantable neurodevices.</p>
+                <h2>Overview</h2>
+                <p>Epileptic seizure detection demands sub-second latency with high sensitivity — a challenge for conventional deep learning models running on power-hungry GPUs. This project implements a neuromorphic approach: raw EEG channel data from 23 electrodes is converted into sparse spike trains and processed through a Spiking Neural Network that mimics biological neural dynamics. The result is a lightweight, event-driven classifier that distinguishes ictal (seizure) from inter-ictal (normal) brain states in real time, making it suitable for wearable and implantable neurodevices.</p>
             </section>
 
-            <!-- How it works -->
+            <!-- Technical Approach -->
             <section class="paper-section reveal">
-                <h2>How it works</h2>
+                <h2>Technical Approach</h2>
+
+                <h4 style="margin: 24px 0 12px;">Signal Processing Pipeline</h4>
                 <div class="diagram-box">
-                    <div class="diagram-label">Signal processing pipeline</div>
+                    <div class="diagram-label">EEG to SNN Inference</div>
                     <div class="diagram-flow">
-                        <div class="diagram-node">EEG Input</div>
+                        <div class="diagram-node">Raw EEG (23ch)</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Butterworth Filter</div>
                         <div class="diagram-connector"></div>
                         <div class="diagram-node">Spike Encoding</div>
                         <div class="diagram-connector"></div>
-                        <div class="diagram-node active">SNN Inference</div>
+                        <div class="diagram-node active">LIF Neurons</div>
                         <div class="diagram-connector"></div>
                         <div class="diagram-node">Classification</div>
                     </div>
                 </div>
-                <div class="grid grid-2" style="gap: 32px; margin-top: 24px;">
-                    <div>
-                        <h4 style="margin-bottom: 8px;">Spike encoding</h4>
-                        <p>Raw EEG voltage traces are converted into temporal spike patterns using rate coding. Each electrode channel maps to a neuron input — high-amplitude activity produces denser spike trains, preserving the temporal structure that traditional FFT-based approaches discard.</p>
+
+                <h4 style="margin: 24px 0 12px;">Key Implementation Details</h4>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li><strong>EEG Filtering:</strong> Butterworth bandpass filter (0.5–40 Hz) to isolate relevant neural frequencies</li>
+                    <li><strong>Window Segmentation:</strong> Time-windowed analysis to identify ictal and non-ictal segments for training and validation</li>
+                    <li><strong>Spike Encoding:</strong> Rate coding converts EEG voltage into temporal spike patterns — high amplitude = denser spikes</li>
+                    <li><strong>SNN Architecture:</strong> 3-layer feedforward network with Leaky Integrate-and-Fire neurons</li>
+                    <li><strong>Gating Mechanism:</strong> Spike-driven LIF neurons selectively process informative windows, reducing computation</li>
+                    <li><strong>Training Method:</strong> Surrogate gradient backpropagation via snnTorch framework</li>
+                </ul>
+            </section>
+
+            <!-- Results & Metrics -->
+            <section class="paper-section reveal">
+                <h2>Results & Metrics</h2>
+
+                <h4 style="margin: 16px 0 12px;">Classification Performance (LOPO-CV)</h4>
+                <table class="data-table">
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Accuracy</td>
+                        <td class="highlight">92.35%</td>
+                    </tr>
+                    <tr>
+                        <td>Specificity (True Negative Rate)</td>
+                        <td class="highlight">92.38%</td>
+                    </tr>
+                    <tr>
+                        <td>Sensitivity (True Positive Rate)</td>
+                        <td class="highlight">85.82%</td>
+                    </tr>
+                    <tr>
+                        <td>Validation Method</td>
+                        <td>Leave-One-Patient-Out Cross-Validation (LOPO-CV)</td>
+                    </tr>
+                </table>
+
+                <h4 style="margin: 24px 0 12px;">Hardware Performance</h4>
+                <div class="result-cards">
+                    <div class="result-card">
+                        <div class="label">Energy / Inference</div>
+                        <div class="value">151.53 µJ</div>
                     </div>
-                    <div>
-                        <h4 style="margin-bottom: 8px;">SNN classification</h4>
-                        <p>The encoded spikes propagate through layers of Leaky Integrate-and-Fire (LIF) neurons. Unlike conventional ANNs, computation only happens when spikes arrive — no spike, no energy spent. The network learns seizure-specific temporal signatures during training via surrogate gradient descent.</p>
+                    <div class="result-card">
+                        <div class="label">Inference Latency</div>
+                        <div class="value">&lt; 500 ms</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Target Hardware</div>
+                        <div class="value">NVIDIA Jetson Nano</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Input Channels</div>
+                        <div class="value">23 EEG</div>
                     </div>
                 </div>
             </section>
 
-            <!-- Technical details -->
+            <!-- Technical Details -->
             <section class="paper-section reveal">
-                <h2>Technical details</h2>
+                <h2>Technical Details</h2>
                 <table class="data-table">
                     <tr>
                         <th>Parameter</th>
-                        <th>Value</th>
+                        <th>Specification</th>
                     </tr>
                     <tr>
-                        <td>Input channels</td>
-                        <td>23 EEG electrodes (10-20 system)</td>
+                        <td>Input Channels</td>
+                        <td>23 EEG electrodes (10–20 system)</td>
                     </tr>
                     <tr>
-                        <td>Neuron model</td>
+                        <td>Sampling Rate</td>
+                        <td>Variable per dataset (typically 256–512 Hz)</td>
+                    </tr>
+                    <tr>
+                        <td>Frequency Range</td>
+                        <td>0.5–40 Hz (Butterworth IIR filter)</td>
+                    </tr>
+                    <tr>
+                        <td>Neuron Model</td>
                         <td>Leaky Integrate-and-Fire (LIF)</td>
                     </tr>
                     <tr>
-                        <td>Network topology</td>
+                        <td>Network Topology</td>
                         <td>3-layer feedforward SNN</td>
                     </tr>
                     <tr>
-                        <td>Encoding scheme</td>
+                        <td>Encoding Scheme</td>
                         <td>Rate coding with temporal binning</td>
                     </tr>
                     <tr>
-                        <td>Training method</td>
-                        <td>Surrogate gradient backprop (snnTorch)</td>
+                        <td>Training Framework</td>
+                        <td>snnTorch with surrogate gradient descent</td>
                     </tr>
                     <tr>
-                        <td>Dataset</td>
-                        <td>CHB-MIT Scalp EEG Database</td>
+                        <td>Deployment Platform</td>
+                        <td>NVIDIA Jetson Nano (ARM-based edge device)</td>
+                    </tr>
+                    <tr>
+                        <td>Validation Methodology</td>
+                        <td>Leave-One-Patient-Out CV (patient-level generalization)</td>
                     </tr>
                 </table>
             </section>
 
-            <!-- Why it matters -->
+            <!-- Skills & Tools -->
             <section class="paper-section reveal">
-                <h2>Why it matters</h2>
-                <p>Traditional seizure detection relies on bulky models that need cloud processing. SNNs offer a path toward on-device, always-on monitoring with orders-of-magnitude lower power consumption. This project demonstrates that biologically-plausible neural computation isn't just theoretically interesting — it's practically viable for safety-critical medical applications where every millisecond of detection latency matters.</p>
+                <h2>Skills & Tools</h2>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">snnTorch</span>
+                    <span class="skill-tag">Neuromorphic Computing</span>
+                    <span class="skill-tag">Signal Processing</span>
+                    <span class="skill-tag">SNN Architectures</span>
+                    <span class="skill-tag">Edge AI</span>
+                    <span class="skill-tag">NVIDIA Jetson</span>
+                </div>
             </section>
 
         </div>
@@ -137,23 +211,30 @@
                         <div class="metric-value">NIT Surat</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">GPA</div>
-                        <div class="metric-value">8.10 CGPA</div>
+                        <div class="metric-label">CGPA</div>
+                        <div class="metric-value">8.10</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Focus Areas</div>
-                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                        <div class="metric-label">Graduation</div>
+                        <div class="metric-value">July 2027</div>
                     </div>
+
                     <div style="flex-grow: 1;"></div>
+
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
-                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">
+                            Download PDF
+                        </button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">
+                            Print
+                        </button>
                     </div>
                 </aside>
+
                 <section class="resume-viewer" id="resume-viewer">
                     <div class="resume-loader" id="resume-loader">
                         <div class="loader-ring"></div>
-                        <div class="loader-text" id="loader-status">Loading...</div>
+                        <div class="loader-text">Loading...</div>
                     </div>
                     <iframe src="Vineet_Jethani.pdf"></iframe>
                 </section>

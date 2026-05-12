@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AsyncLink PHY — Vineet Jethani</title>
-    <meta name="description" content="UART Transmitter — configurable serial communication PHY implemented in Verilog with baud rate generator, parity, and FSM control.">
+    <title>UART Transmitter — Vineet Jethani</title>
+    <meta name="description" content="UART transmitter design in Verilog with FSM control, baud rate generator, and protocol verification in Xilinx Vivado.">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
             <a href="projects.html" class="active">Projects</a>
             <a href="about.html">About</a>
             <a href="javascript:void(0)" onclick="openResume()">Resume</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html#contact">Contact</a>
             <div class="nav-divider"></div>
             <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
         </div>
@@ -31,83 +31,176 @@
             <a href="projects.html" class="back-link reveal">← Back to projects</a>
 
             <header class="paper-header reveal">
-                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 02 · Digital / Communication</span>
-                <h1>AsyncLink PHY</h1>
-                <p>A fully configurable UART transmitter module designed in Verilog — asynchronous serial communication from first principles.</p>
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 02 · Digital / FPGA</span>
+                <h1>UART Transmitter</h1>
+                <p>Hardware serial transmitter designed and implemented in Verilog with an internal baud rate generator, protocol-correct 8N1 framing, and full testbench verification in Xilinx Vivado.</p>
             </header>
 
-            <!-- Abstract -->
+            <!-- Overview -->
             <section class="paper-section reveal">
-                <h2>Abstract</h2>
-                <p>Serial communication remains the backbone of embedded systems — from sensor interfaces to debug consoles. AsyncLink PHY is a ground-up Verilog implementation of a UART transmitter with configurable baud rate, data width, and parity. The design emphasizes clean FSM architecture, precise bit-level timing, and synthesizability for both FPGA and ASIC targets.</p>
+                <h2>Overview</h2>
+                <p>A UART (Universal Asynchronous Receiver-Transmitter) transmitter is a fundamental building block in digital communication systems. This project implements a complete transmitter from first principles in Verilog, including clock-to-baud rate generation, Finite State Machine control, and protocol-compliant serial output. The design processes parallel 8-bit data input and converts it into a serial stream with start, data, and stop bits, following the 8N1 (8 bits, no parity, 1 stop bit) standard.</p>
             </section>
 
             <!-- Architecture -->
             <section class="paper-section reveal">
-                <h2>Architecture</h2>
+                <h2>Microarchitecture</h2>
+
+                <h4 style="margin: 24px 0 12px;">Datapath & Control Path</h4>
                 <div class="diagram-box">
-                    <div class="diagram-label">Transmitter data path</div>
+                    <div class="diagram-label">UART Transmitter Block Diagram</div>
                     <div class="diagram-flow">
-                        <div class="diagram-node">Data Register</div>
-                        <div class="diagram-connector"></div>
-                        <div class="diagram-node active">Baud Generator</div>
+                        <div class="diagram-node">Parallel Data (8-bit)</div>
                         <div class="diagram-connector"></div>
                         <div class="diagram-node">Shift Register</div>
                         <div class="diagram-connector"></div>
-                        <div class="diagram-node">TX Line</div>
+                        <div class="diagram-node active">FSM Control</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Baud Clock</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Serial Output</div>
                     </div>
                 </div>
-                <div class="grid grid-2" style="gap: 32px; margin-top: 24px;">
-                    <div>
-                        <h4 style="margin-bottom: 8px;">FSM control</h4>
-                        <p>The transmitter operates through four states: IDLE → START → DATA → STOP. A clean Mealy-type FSM manages transitions, ensuring the start bit, data bits (LSB-first), optional parity bit, and stop bit(s) are serialized with cycle-accurate timing.</p>
-                    </div>
-                    <div>
-                        <h4 style="margin-bottom: 8px;">Baud rate generator</h4>
-                        <p>A programmable clock divider derives the baud tick from the system clock. Supporting standard rates from 9600 to 115200 baud, the divider uses a counter-based approach to produce symmetrical bit periods regardless of the input clock frequency.</p>
-                    </div>
-                </div>
+
+                <h4 style="margin: 24px 0 12px;">Implementation Details</h4>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li><strong>Baud Rate Generator:</strong> Derives exact baud rate from system clock through divisor counter</li>
+                    <li><strong>FSM States (4 states):</strong>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li><code>IDLE</code> — waiting for transmission request</li>
+                            <li><code>START</code> — transmits start bit (0)</li>
+                            <li><code>DATA</code> — shifts out 8 bits LSB-first</li>
+                            <li><code>STOP</code> — transmits stop bit (1)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Shift Register:</strong> 8-bit register with LSB-first serialization to match protocol</li>
+                    <li><strong>Timing Control:</strong> Baud rate clock controls state transitions and bit shifts</li>
+                    <li><strong>Data Format:</strong> 8N1 — 1 start + 8 data + 1 stop = 10 bits per character</li>
+                </ul>
             </section>
 
-            <!-- Technical specs -->
+            <!-- Design Specifications -->
             <section class="paper-section reveal">
-                <h2>Technical details</h2>
+                <h2>Design Specifications</h2>
                 <table class="data-table">
                     <tr>
                         <th>Parameter</th>
-                        <th>Value</th>
+                        <th>Specification</th>
                     </tr>
                     <tr>
-                        <td>HDL</td>
-                        <td>Verilog</td>
+                        <td>Language</td>
+                        <td>Verilog HDL</td>
                     </tr>
                     <tr>
-                        <td>Data width</td>
-                        <td>Configurable (5–9 bits)</td>
+                        <td>Data Width</td>
+                        <td>8 bits</td>
                     </tr>
                     <tr>
-                        <td>Baud rates</td>
-                        <td>9600 / 19200 / 115200</td>
+                        <td>Data Format</td>
+                        <td>8N1 (8 data, no parity, 1 stop)</td>
                     </tr>
                     <tr>
-                        <td>Parity</td>
-                        <td>None / Even / Odd (selectable)</td>
+                        <td>Bit Order</td>
+                        <td>LSB-first (least significant bit transmitted first)</td>
                     </tr>
                     <tr>
-                        <td>Stop bits</td>
-                        <td>1 or 2</td>
+                        <td>FSM States</td>
+                        <td>4-state machine (IDLE, START, DATA, STOP)</td>
                     </tr>
                     <tr>
-                        <td>Verification</td>
-                        <td>Testbench simulation + FPGA validation</td>
+                        <td>Baud Rate Generation</td>
+                        <td>Divisor-based from system clock</td>
+                    </tr>
+                    <tr>
+                        <td>Configurable Parameters</td>
+                        <td>Baud rate, clock frequency via parameters</td>
+                    </tr>
+                    <tr>
+                        <td>Verification Tool</td>
+                        <td>Xilinx Vivado with self-checking testbench</td>
                     </tr>
                 </table>
             </section>
 
-            <!-- Design philosophy -->
+            <!-- Verification -->
             <section class="paper-section reveal">
-                <h2>Design philosophy</h2>
-                <p>Building a UART from scratch isn't about reinventing what already exists — it's about deeply understanding how digital systems manage time without a shared clock. Every design decision here, from the oversampling strategy to the FSM encoding, was made with synthesizability and timing closure in mind. This is the kind of fundamental IP that underpins every SoC, and getting it right at the RTL level builds the intuition needed for more complex protocol engines.</p>
+                <h2>Verification & Testing</h2>
+
+                <h4 style="margin: 16px 0 12px;">Testbench Approach</h4>
+                <p>A comprehensive self-checking testbench was developed to verify end-to-end functionality:</p>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8; margin-top: 12px;">
+                    <li>Generate multiple test patterns (0x00, 0xFF, 0xAA, 0x55, and random data)</li>
+                    <li>Monitor serial output for correct framing: start bit, 8 data bits, stop bit</li>
+                    <li>Verify bit timing against baud rate</li>
+                    <li>Check LSB-first serialization order</li>
+                    <li>Validate FSM state transitions</li>
+                </ul>
+
+                <h4 style="margin: 24px 0 12px;">Timing Analysis</h4>
+                <p style="color: var(--text-secondary);">Waveform-level timing analysis was performed in Vivado to validate setup/hold margins and ensure no metastability issues in the baud rate generation logic. Timing closure achieved with positive slack on all critical paths.</p>
+
+                <div class="result-cards">
+                    <div class="result-card">
+                        <div class="label">Test Patterns</div>
+                        <div class="value">6+</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">FSM States</div>
+                        <div class="value">4</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Verified Frames</div>
+                        <div class="value">10 bits</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Timing Status</div>
+                        <div class="value">Passed</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Implementation Results -->
+            <section class="paper-section reveal">
+                <h2>Implementation Results</h2>
+
+                <h4 style="margin: 16px 0 12px;">Resource Utilization</h4>
+                <table class="data-table">
+                    <tr>
+                        <th>Resource</th>
+                        <th>Usage</th>
+                    </tr>
+                    <tr>
+                        <td>LUTs (Logic)</td>
+                        <td>Minimal (~5-10 per baud rate divisor size)</td>
+                    </tr>
+                    <tr>
+                        <td>Registers</td>
+                        <td>~3 (shift register + counters)</td>
+                    </tr>
+                    <tr>
+                        <td>Block RAM</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Total Area</td>
+                        <td>Very small footprint — suitable for integration</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Skills & Tools -->
+            <section class="paper-section reveal">
+                <h2>Skills & Tools</h2>
+                <div class="skill-tags">
+                    <span class="skill-tag">Verilog HDL</span>
+                    <span class="skill-tag">FSM Design</span>
+                    <span class="skill-tag">Xilinx Vivado</span>
+                    <span class="skill-tag">Testbenches</span>
+                    <span class="skill-tag">Timing Analysis</span>
+                    <span class="skill-tag">UART Protocol</span>
+                    <span class="skill-tag">Digital Logic</span>
+                    <span class="skill-tag">FPGA Implementation</span>
+                </div>
             </section>
 
         </div>
@@ -137,23 +230,30 @@
                         <div class="metric-value">NIT Surat</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">GPA</div>
-                        <div class="metric-value">8.10 CGPA</div>
+                        <div class="metric-label">CGPA</div>
+                        <div class="metric-value">8.10</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Focus Areas</div>
-                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                        <div class="metric-label">Graduation</div>
+                        <div class="metric-value">July 2027</div>
                     </div>
+
                     <div style="flex-grow: 1;"></div>
+
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
-                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">
+                            Download PDF
+                        </button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">
+                            Print
+                        </button>
                     </div>
                 </aside>
+
                 <section class="resume-viewer" id="resume-viewer">
                     <div class="resume-loader" id="resume-loader">
                         <div class="loader-ring"></div>
-                        <div class="loader-text" id="loader-status">Loading...</div>
+                        <div class="loader-text">Loading...</div>
                     </div>
                     <iframe src="Vineet_Jethani.pdf"></iframe>
                 </section>

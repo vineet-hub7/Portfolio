@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                revealObserver.unobserve(entry.target); // animate once
+                revealObserver.unobserve(entry.target);
             }
         });
     }, {
@@ -20,13 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ==========================================================================
-       SMOOTH SCROLL PROGRESS — Thin line at top of page
+       ANIMATED PROGRESS BAR
        ========================================================================== */
     const progressBar = document.createElement('div');
     progressBar.style.cssText = `
-        position: fixed; top: 0; left: 0; height: 1px; z-index: 1001;
-        background: var(--border); width: 0%; transition: width 0.1s linear;
+        position: fixed; top: 0; left: 0; height: 2px; z-index: 1001;
+        background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+        width: 0%; transition: width 0.1s linear;
         pointer-events: none;
+        box-shadow: 0 0 12px var(--accent);
     `;
     document.body.appendChild(progressBar);
 
@@ -44,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const progress = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
                 progressBar.style.width = `${progress}%`;
 
-                // Back to top visibility
                 if (backToTop) {
                     if (scrolled > 500) {
                         backToTop.classList.add('visible');
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       THEME TOGGLE — Clean swap, no bloom
+       THEME TOGGLE
        ========================================================================== */
     window.toggleTheme = function() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -78,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (icon) icon.textContent = newTheme === 'light' ? '☀️' : '🌙';
     };
 
-    // Restore saved theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
     const themeIcon = document.getElementById('theme-icon');
@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Close modal with Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             window.closeResume();
@@ -140,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       NAV ACTIVE STATE — Highlight current page
+       NAV ACTIVE STATE
        ========================================================================== */
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-links a').forEach(link => {
@@ -182,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
         navOverlay.addEventListener('click', closeMenu);
     }
 
-    // Close menu when a link is clicked
     if (navLinks) {
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', closeMenu);
@@ -190,7 +188,109 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       ANIMATED NUMBER COUNTER — Stats count up on scroll
+       TYPEWRITER ANIMATION — Hero tagline cycles through phrases
+       ========================================================================== */
+    const scrambleTextEl = document.querySelector('.scramble-text');
+    if (scrambleTextEl) {
+        const phrases = ['I design silicon.', 'I speak in Verilog.', 'I build at gate level.'];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeSpeed = 80;
+        const deleteSpeed = 40;
+        const pauseTime = 2000;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+
+            if (isDeleting) {
+                charIndex--;
+            } else {
+                charIndex++;
+            }
+
+            scrambleTextEl.textContent = currentPhrase.substring(0, charIndex);
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(type, pauseTime);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+            }
+        }
+
+        setTimeout(type, 500);
+    }
+
+    /* ==========================================================================
+       CARD TILT EFFECT ON HOVER
+       ========================================================================== */
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) * 0.02;
+            const rotateY = (centerX - x) * 0.02;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(-4px)';
+        });
+    });
+
+    /* ==========================================================================
+       PARALLAX HERO IMAGE
+       ========================================================================== */
+    const profileImage = document.querySelector('.profile-image');
+    if (profileImage) {
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            profileImage.style.transform = `translateY(${scrollY * 0.3}px)`;
+        }, { passive: true });
+    }
+
+    /* ==========================================================================
+       GLITCH EFFECT ON HERO NAME (on page load)
+       ========================================================================== */
+    const navName = document.querySelector('.nav-name');
+    if (navName) {
+        function triggerGlitch() {
+            const originalText = navName.textContent;
+            navName.style.animation = 'none';
+
+            setTimeout(() => {
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => {
+                        const glitchText = originalText
+                            .split('')
+                            .map(() => String.fromCharCode(65 + Math.random() * 26))
+                            .join('');
+                        navName.textContent = glitchText;
+                    }, i * 30);
+                }
+
+                setTimeout(() => {
+                    navName.textContent = originalText;
+                }, 150);
+            }, 100);
+        }
+
+        triggerGlitch();
+    }
+
+    /* ==========================================================================
+       ANIMATED NUMBER COUNTER
        ========================================================================== */
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -198,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const target = entry.target;
                 const endValue = parseInt(target.getAttribute('data-count'));
                 if (isNaN(endValue)) return;
-                
+
                 const duration = 1500;
                 const startTime = performance.now();
                 const startValue = 0;
@@ -206,11 +306,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 function updateCounter(now) {
                     const elapsed = now - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-                    // Ease out quad
                     const eased = 1 - (1 - progress) * (1 - progress);
                     const current = Math.floor(startValue + (endValue - startValue) * eased);
                     target.textContent = current + (target.getAttribute('data-suffix') || '');
-                    
+
                     if (progress < 1) {
                         requestAnimationFrame(updateCounter);
                     } else {

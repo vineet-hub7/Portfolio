@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects — Vineet Jethani</title>
-    <meta name="description" content="Hardware projects by Vineet Jethani — RISC-V accelerators, neuromorphic SNN cores, and high-speed ADC interfaces.">
+    <meta name="description" content="Electronics engineering projects: Neuromorphic SNN seizure detection, UART transmitter, and RF circuit design.">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
             <a href="projects.html" class="active">Projects</a>
             <a href="about.html">About</a>
             <a href="javascript:void(0)" onclick="openResume()">Resume</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html#contact">Contact</a>
             <div class="nav-divider"></div>
             <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
         </div>
@@ -31,78 +31,78 @@
 
         <div class="page-header reveal">
             <span class="label">Projects</span>
-            <h1>Selected work</h1>
-            <p>Exploring the frontier of hardware acceleration and neuromorphic computing.</p>
+            <h1>Engineering Portfolio</h1>
+            <p>Neuromorphic computing, FPGA design, and RF circuit engineering — from silicon to deployment.</p>
         </div>
 
         <div class="grid reveal-stagger" style="grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 28px;">
 
-            <!-- Project 1 -->
+            <!-- Project 1: EEG Seizure Prediction -->
             <a href="project_1.html" class="card card-link reveal">
-                <div class="card-label">VLSI / ML</div>
-                <h3>RISC-V Vector Accelerator</h3>
-                <p>A specialized silicon IP for high-throughput tensor operations, featuring a 5-stage decoupled pipeline.</p>
+                <div class="card-label">Neuromorphic / BioSignal</div>
+                <h3>EEG-Based Seizure Prediction using Spiking Neural Networks</h3>
+                <p>Real-time seizure detection using biologically-inspired spike encoding and LIF neurons on NVIDIA Jetson Nano.</p>
 
                 <div class="stat-row">
-                    <div class="stat-item">
-                        <span class="stat-label">Latency</span>
-                        <span class="stat-value">1.2 ns</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Power</span>
-                        <span class="stat-value">45 mW</span>
-                    </div>
                     <div class="stat-item">
                         <span class="stat-label">Accuracy</span>
-                        <span class="stat-value">99.2%</span>
+                        <span class="stat-value">92.35%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Energy</span>
+                        <span class="stat-value">151.53 µJ</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Hardware</span>
+                        <span class="stat-value">Jetson Nano</span>
                     </div>
                 </div>
 
                 <span class="card-arrow">Read more →</span>
             </a>
 
-            <!-- Project 2 -->
+            <!-- Project 2: UART Transmitter -->
             <a href="project_2.html" class="card card-link reveal">
-                <div class="card-label">Neuromorphic</div>
-                <h3>Neuromorphic SNN Core</h3>
-                <p>Asynchronous event-based processing core inspired by biological neural systems for edge AI.</p>
+                <div class="card-label">Digital / FPGA</div>
+                <h3>UART Transmitter</h3>
+                <p>Verilog-based FSM transmitter with internal baud rate generator and protocol-correct 8N1 serial framing.</p>
 
                 <div class="stat-row">
                     <div class="stat-item">
-                        <span class="stat-label">Latency</span>
-                        <span class="stat-value">0.8 ms</span>
+                        <span class="stat-label">FSM States</span>
+                        <span class="stat-value">4-state</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Power</span>
-                        <span class="stat-value">12 μW</span>
+                        <span class="stat-label">Protocol</span>
+                        <span class="stat-value">8N1</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Sparsity</span>
-                        <span class="stat-value">92%</span>
+                        <span class="stat-label">Tool</span>
+                        <span class="stat-value">Vivado</span>
                     </div>
                 </div>
 
                 <span class="card-arrow">Read more →</span>
             </a>
 
-            <!-- Project 3 -->
+            <!-- Project 3: 2G GSM Jammer -->
             <a href="project_3.html" class="card card-link reveal">
                 <div class="card-label">RF / Analog</div>
-                <h3>High-Speed ADC Interface</h3>
-                <p>Precision analog-to-digital bridge for RF signals, implementing multi-phase interleaving logic.</p>
+                <h3>2G GSM Mobile Signal Jammer</h3>
+                <p>900 MHz RF interference circuit using NE555 astable multivibrator and BF495 RF transistor with LC tank oscillator.</p>
 
                 <div class="stat-row">
                     <div class="stat-item">
-                        <span class="stat-label">SNR</span>
-                        <span class="stat-value">72 dB</span>
+                        <span class="stat-label">Frequency</span>
+                        <span class="stat-value">880–960 MHz</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">OSR</span>
-                        <span class="stat-value">16x</span>
+                        <span class="stat-label">Oscillator</span>
+                        <span class="stat-value">LC Tank</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Supply</span>
-                        <span class="stat-value">1.1 V</span>
+                        <span class="stat-label">Verified</span>
+                        <span class="stat-value">LTspice</span>
                     </div>
                 </div>
 
@@ -137,23 +137,30 @@
                         <div class="metric-value">NIT Surat</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">GPA</div>
-                        <div class="metric-value">8.10 CGPA</div>
+                        <div class="metric-label">Degree</div>
+                        <div class="metric-value">B.Tech ECE</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Focus Areas</div>
-                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                        <div class="metric-label">CGPA</div>
+                        <div class="metric-value">8.10 / 10</div>
                     </div>
+
                     <div style="flex-grow: 1;"></div>
+
                     <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
-                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">
+                            Download PDF
+                        </button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">
+                            Print
+                        </button>
                     </div>
                 </aside>
+
                 <section class="resume-viewer" id="resume-viewer">
                     <div class="resume-loader" id="resume-loader">
                         <div class="loader-ring"></div>
-                        <div class="loader-text" id="loader-status">Loading...</div>
+                        <div class="loader-text">Loading...</div>
                     </div>
                     <iframe src="Vineet_Jethani.pdf"></iframe>
                 </section>

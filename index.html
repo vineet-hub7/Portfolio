@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vineet Jethani — Hardware & VLSI Engineer</title>
+    <title>Vineet Jethani — Electronics & VLSI Engineer</title>
     <meta name="description"
-        content="Portfolio of Vineet Jethani — Electronics Engineer specializing in VLSI design, hardware ML acceleration, and neuromorphic computing.">
+        content="Electronics Engineer specializing in neuromorphic computing, FPGA design, and digital signal processing. NIT Surat, B.Tech ECE.">
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -30,41 +30,39 @@
     </nav>
     <div class="nav-overlay"></div>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="grid grid-12" style="align-items: center; gap: 48px;">
 
-                    <!-- Profile -->
+                    <!-- Profile Image -->
                     <div class="col-span-4 reveal">
                         <div class="profile-image">
                             <img src="profile.jpeg" alt="Vineet Jethani">
                         </div>
                     </div>
 
-                    <!-- Headline -->
+                    <!-- Hero Content -->
                     <div class="col-span-8 reveal" style="transition-delay: 0.15s;">
                         <div class="availability-banner">
                             <div class="availability-dot"></div>
                             Open to internships & full-time roles
                         </div>
-                        <h1><span class="scramble-text">I design hardware</span><br>that <em>thinks.</em></h1>
-                        <p class="hero-subtitle">Electronics engineer at NIT Surat, working at the intersection of VLSI
-                            design, machine learning acceleration, and neuromorphic computing.</p>
+                        <h1><span class="scramble-text">I design silicon.</span></h1>
+                        <p class="hero-subtitle">Electronics engineer at NIT Surat, working with neuromorphic computing, FPGA design, and digital signal processing. Building intelligent hardware at the gate level.</p>
                         <div class="hero-meta">
                             <div class="hero-meta-item">
                                 <span class="hero-meta-label">Focus</span>
-                                <span class="hero-meta-value">VLSI × Machine Learning</span>
+                                <span class="hero-meta-value">Neuromorphic SNN × VLSI</span>
                             </div>
                             <div class="hero-meta-item">
-                                <span class="hero-meta-label">University</span>
-                                <span class="hero-meta-value">NIT Surat</span>
+                                <span class="hero-meta-label">CGPA</span>
+                                <span class="hero-meta-value">8.10 / 10</span>
                             </div>
                             <div class="hero-meta-item">
-                                <span class="hero-meta-label">Resume</span>
-                                <span class="hero-meta-value"><a href="javascript:void(0)" onclick="openResume()">View
-                                        resume</a></span>
+                                <span class="hero-meta-label">Batch</span>
+                                <span class="hero-meta-value">2027</span>
                             </div>
                         </div>
                     </div>
@@ -74,229 +72,131 @@
         </div>
     </section>
 
-    <!-- Section: Featured Projects -->
+    <!-- Section Divider -->
     <div class="container">
         <hr class="section-divider">
     </div>
 
+    <!-- Featured Projects Section -->
     <section class="page-section">
         <div class="container">
             <div class="section-header reveal">
-                <h2>Selected work</h2>
+                <h2>Featured Projects</h2>
             </div>
 
             <div class="grid grid-12 reveal-stagger">
 
-                <!-- Featured: NeuroSentinel Core -->
+                <!-- Project 1: EEG Seizure Prediction -->
                 <a href="project_1.html" class="col-span-8 card card-link card-featured reveal">
                     <div class="card-label">Neuromorphic / BioSignal</div>
-                    <h3>NeuroSentinel Core</h3>
-                    <p>Real-time seizure detection engine using Spiking Neural Networks — processes raw EEG signals
-                        through biologically-inspired spike encoding for ictal pattern classification.</p>
+                    <h3>EEG-Based Seizure Prediction using Spiking Neural Networks</h3>
+                    <p>Real-time seizure detection engine using Spiking Neural Networks — processes raw EEG signals through biologically-inspired spike encoding for efficient neuromorphic inference on edge devices.</p>
                     <div class="stat-row">
                         <div class="stat-item">
-                            <span class="stat-label">Input</span>
-                            <span class="stat-value">23-ch EEG</span>
+                            <span class="stat-label">Accuracy</span>
+                            <span class="stat-value">92.35%</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Neuron</span>
-                            <span class="stat-value">LIF Model</span>
+                            <span class="stat-label">Specificity</span>
+                            <span class="stat-value">92.38%</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Network</span>
-                            <span class="stat-value">3-layer SNN</span>
+                            <span class="stat-label">Energy</span>
+                            <span class="stat-value">151.53 µJ</span>
                         </div>
                     </div>
-                    <span class="card-arrow">View project →</span>
+                    <span class="card-arrow">Read more →</span>
                 </a>
 
-                <!-- Side stack -->
+                <!-- Side Stack -->
                 <div class="col-span-4 grid" style="grid-template-rows: 1fr 1fr;">
+                    <!-- Project 2: UART Transmitter -->
                     <a href="project_2.html" class="card card-link reveal">
-                        <div class="card-label">Digital / Comm</div>
-                        <h4>AsyncLink PHY</h4>
-                        <p>UART transmitter in Verilog — configurable baud rate, parity, and FSM-driven serialization.</p>
-                        <span class="card-arrow">View project →</span>
+                        <div class="card-label">Digital / FPGA</div>
+                        <h4>UART Transmitter</h4>
+                        <p>FSM-based serial transmitter in Verilog with configurable baud rate generation from system clock.</p>
+                        <span class="card-arrow">Read more →</span>
                     </a>
 
+                    <!-- Project 3: GSM Jammer -->
                     <a href="project_3.html" class="card card-link reveal">
                         <div class="card-label">RF / Analog</div>
-                        <h4>WaveShield RF</h4>
-                        <p>2G GSM signal jammer — swept-frequency interference across 900/1800 MHz bands.</p>
-                        <span class="card-arrow">View project →</span>
+                        <h4>2G GSM Mobile Signal Jammer</h4>
+                        <p>900 MHz RF interference circuit using NE555 oscillator and BF495 RF transistor with tunable LC tank.</p>
+                        <span class="card-arrow">Read more →</span>
                     </a>
                 </div>
 
-                <!-- All projects CTA -->
+                <!-- All Projects CTA -->
                 <div class="col-span-12 reveal"
                     style="display: flex; align-items: center; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 8px;">
                     <div>
-                        <h4>All projects</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px;">Hardware designs,
-                            digital systems, and RF experiments.</p>
+                        <h4>View all work</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px;">Electronics design, VLSI, FPGA, and RF experiments.</p>
                     </div>
-                    <a href="projects.html" class="btn">View all →</a>
+                    <a href="projects.html" class="btn">All projects →</a>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- Section: Impact Stats (uncomment when ready)
+    <!-- Section Divider -->
     <div class="container">
         <hr class="section-divider">
     </div>
 
-    <section class="page-section">
-        <div class="container">
-            <div class="impact-stats reveal-stagger">
-                <div class="impact-stat reveal">
-                    <div class="impact-number" data-count="3" data-suffix="+">0</div>
-                    <div class="impact-label">Hardware projects</div>
-                </div>
-                <div class="impact-stat reveal">
-                    <div class="impact-number" data-count="2">0</div>
-                    <div class="impact-label">Publications</div>
-                </div>
-                <div class="impact-stat reveal">
-                    <div class="impact-number" data-count="8" data-suffix=".1">0</div>
-                    <div class="impact-label">CGPA at NIT Surat</div>
-                </div>
-                <div class="impact-stat reveal">
-                    <div class="impact-number" data-count="99" data-suffix="%">0</div>
-                    <div class="impact-label">Accelerator accuracy</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
-
-    <!-- Section: Experience (uncomment when ready)
-    <div class="container">
-        <hr class="section-divider">
-    </div>
-
+    <!-- Skills Section -->
     <section class="page-section">
         <div class="container">
             <div class="section-header reveal">
-                <h2>Experience</h2>
+                <h2>Skills & Tools</h2>
             </div>
 
-            <div class="grid grid-12">
-                <div class="col-span-7">
-                    <div class="timeline reveal-stagger">
-                        <div class="timeline-item reveal">
-                            <div class="timeline-date">2024 — Present</div>
-                            <h4>NIT Surat</h4>
-                            <div class="timeline-role">B.Tech Electronics Engineering</div>
-                            <p>Specializing in VLSI design and hardware-accelerated machine learning. Research focus on neuromorphic SNN architectures and RISC-V vector extensions.</p>
-                        </div>
-                        <div class="timeline-item reveal">
-                            <div class="timeline-date">2024</div>
-                            <h4>FPGA Neural Accelerator</h4>
-                            <div class="timeline-role">Lead Hardware Designer</div>
-                            <p>Designed and implemented a 5-stage decoupled vector-scalar accelerator achieving 15x inference speedup over baseline CPU architectures.</p>
-                        </div>
-                        <div class="timeline-item reveal">
-                            <div class="timeline-date">2023</div>
-                            <h4>IEEE VLSID Publication</h4>
-                            <div class="timeline-role">First Author</div>
-                            <p>Published novel decoupling mechanism reducing pipeline stalls by 42% in real-time SNN inference workloads.</p>
-                        </div>
+            <div class="grid grid-12 reveal-stagger">
+                <div class="col-span-4 reveal">
+                    <h4 style="margin-bottom: 16px;">Areas of Interest</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Digital VLSI</span>
+                        <span class="skill-tag">FPGA Design</span>
+                        <span class="skill-tag">Neuromorphic SNN</span>
+                        <span class="skill-tag">DSP</span>
                     </div>
                 </div>
-                <div class="col-span-5">
-                    <div class="section-header reveal">
-                        <h3>Achievements</h3>
+
+                <div class="col-span-4 reveal">
+                    <h4 style="margin-bottom: 16px;">Languages & HDL</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Verilog</span>
+                        <span class="skill-tag">VHDL</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C/C++</span>
                     </div>
-                    <div class="achievements reveal-stagger">
-                        <div class="achievement-card reveal">
-                            <div class="achievement-icon">📄</div>
-                            <div class="achievement-text">
-                                <h4>IEEE Publication</h4>
-                                <p>Published at VLSID 2024 — top-tier VLSI conference</p>
-                            </div>
-                        </div>
-                        <div class="achievement-card reveal">
-                            <div class="achievement-icon">⚡</div>
-                            <div class="achievement-text">
-                                <h4>15x Inference Speedup</h4>
-                                <p>Custom RISC-V vector accelerator vs baseline CPU</p>
-                            </div>
-                        </div>
-                        <div class="achievement-card reveal">
-                            <div class="achievement-icon">🏆</div>
-                            <div class="achievement-text">
-                                <h4>8.10 CGPA</h4>
-                                <p>NIT Surat — Electronics Engineering</p>
-                            </div>
-                        </div>
-                        <div class="achievement-card reveal">
-                            <div class="achievement-icon">🔬</div>
-                            <div class="achievement-text">
-                                <h4>Sub-μW SNN Core</h4>
-                                <p>12 μW neuromorphic processor for edge AI</p>
-                            </div>
-                        </div>
+                </div>
+
+                <div class="col-span-4 reveal">
+                    <h4 style="margin-bottom: 16px;">Design Tools</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Vivado</span>
+                        <span class="skill-tag">Cadence Virtuoso</span>
+                        <span class="skill-tag">LTspice</span>
+                        <span class="skill-tag">KiCAD</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    -->
 
-    <!-- Section: Research (uncomment when ready)
+    <!-- Section Divider -->
     <div class="container">
         <hr class="section-divider">
     </div>
 
-    <section class="page-section">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>Research & exploration</h2>
-            </div>
-
-            <div class="grid grid-2 reveal-stagger">
-                <a href="system_architecture.html" class="card card-link reveal">
-                    <h3>Architecture topology</h3>
-                    <p>Visualizing the integration of VLSI, ML, and RF abstraction layers.</p>
-                    <span class="card-arrow">Explore →</span>
-                </a>
-                <a href="research_publications.html" class="card card-link reveal">
-                    <h3>Publications</h3>
-                    <p>Deep dives into ASIC implementation and neural hardware papers.</p>
-                    <span class="card-arrow">Read →</span>
-                </a>
-            </div>
-        </div>
-    </section>
-    -->
-
-    <!-- Section: Philosophy -->
-    <div class="container">
-        <hr class="section-divider">
-    </div>
-
-    <section class="page-section">
-        <div class="container">
-            <div class="callout reveal">
-                <h2>"Hardware that anticipates intelligence at the gate level."</h2>
-                <p>I believe in engineering that balances mathematical constraints with physical optimization — systems
-                    that don't just process data, but understand it.</p>
-                <a href="about.html" class="btn">More about me →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section: Contact -->
-    <div class="container">
-        <hr class="section-divider">
-    </div>
-
+    <!-- Contact Section -->
     <section class="page-section" id="contact">
         <div class="container">
             <div class="section-header reveal">
-                <h2>Let's build something <em>meaningful.</em></h2>
+                <h2>Let's connect</h2>
             </div>
 
             <div class="contact-grid">
@@ -337,7 +237,7 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            <p>© 2026 Vineet Jethani</p>
+            <p>© 2026 Vineet Jethani · Electronics Engineer</p>
         </div>
     </footer>
 
@@ -358,12 +258,16 @@
                         <div class="metric-value">NIT Surat</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">GPA</div>
-                        <div class="metric-value">8.10 CGPA</div>
+                        <div class="metric-label">Degree</div>
+                        <div class="metric-value">B.Tech ECE</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Focus Areas</div>
-                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
+                        <div class="metric-label">CGPA</div>
+                        <div class="metric-value">8.10 / 10</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Graduation</div>
+                        <div class="metric-value">July 2027</div>
                     </div>
 
                     <div style="flex-grow: 1;"></div>
