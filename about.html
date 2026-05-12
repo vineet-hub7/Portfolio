@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About — Vineet Jethani</title>
-    <meta name="description" content="How Vineet Jethani approaches hardware design — from problem decomposition to gate-level optimization.">
+    <meta name="description" content="Electronics and Communication Engineering student at NIT Surat — VLSI, FPGA design, neuromorphic computing, and digital signal processing.">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav class="site-nav">
         <a href="index.html" class="nav-name">Vineet Jethani</a>
         <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -18,7 +17,7 @@
             <a href="projects.html">Projects</a>
             <a href="about.html" class="active">About</a>
             <a href="javascript:void(0)" onclick="openResume()">Resume</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html#contact">Contact</a>
             <div class="nav-divider"></div>
             <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
         </div>
@@ -30,58 +29,134 @@
 
             <div class="page-header reveal">
                 <span class="label">About</span>
-                <h1>How I think</h1>
-                <p>Translating raw complexity into elegant hardware logic.</p>
+                <h1>The engineer behind the circuits.</h1>
+                <p>I'm Vineet — a third-year B.Tech ECE student at SVNIT Surat, building things at the boundary of digital design and intelligent hardware.</p>
             </div>
 
-            <!-- Process Steps -->
-            <section class="reveal-stagger">
+            <!-- Bio -->
+            <section class="paper-section reveal">
+                <h2>Background</h2>
+                <p>My interest in electronics started with understanding how transistors amplify signals and grew into a fascination with how billions of them, arranged just right, can process information efficiently. At NIT Surat, I've been working across domains — from RTL design and FPGA implementation to neuromorphic computing and RF circuit analysis.</p>
+                <p>What I find most interesting is the problem of doing more with less: fewer watts, fewer gate delays, smaller silicon area. That tradeoff space is where I spend most of my time thinking.</p>
+            </section>
+
+            <!-- Education Timeline -->
+            <section class="paper-section reveal">
+                <h2>Education</h2>
+                <div class="timeline">
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">Aug 2023 — Expected July 2027</span>
+                        <div class="timeline-title">Sardar Vallabhbhai National Institute of Technology</div>
+                        <div class="timeline-sub">B.Tech in Electronics and Communication Engineering · Surat, Gujarat</div>
+                        <span class="timeline-score">8.10 CGPA</span>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">2023</span>
+                        <div class="timeline-title">Senior Secondary — CBSE</div>
+                        <div class="timeline-sub">Surat, Gujarat</div>
+                        <span class="timeline-score">93%</span>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-year">2021</span>
+                        <div class="timeline-title">Secondary — CBSE</div>
+                        <div class="timeline-sub">Surat, Gujarat</div>
+                        <span class="timeline-score">96.33%</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Process -->
+            <section class="paper-section reveal-stagger">
+                <h2>How I work</h2>
+
                 <div class="step-card reveal">
                     <div class="step-number">01</div>
                     <div class="step-content">
-                        <h3>Problem decomposition</h3>
-                        <p>Breaking down complex system requirements into discrete mathematical and logical constraints. Identifying throughput bottlenecks and power envelopes.</p>
+                        <h3>Start from constraints</h3>
+                        <p>Before writing a single line of HDL or code, I try to understand what the system actually needs — power envelope, latency budget, area targets. Most design decisions downstream become easier when you're clear about the constraints up front.</p>
                     </div>
                 </div>
-
-                <div class="step-connector"></div>
 
                 <div class="step-card reveal">
                     <div class="step-number">02</div>
                     <div class="step-content">
-                        <h3>Architectural synthesis</h3>
-                        <p>Drafting the high-level datapath and control units. Balancing latency vs. area in VLSI design or deciding on neural network pruning strategies.</p>
+                        <h3>Architect at the right level of abstraction</h3>
+                        <p>Good hardware design starts at the block level: defining the datapath, control unit interactions, and timing before getting into RTL. For the EEG project, settling the SNN architecture before implementation saved significant iteration time.</p>
                     </div>
                 </div>
-
-                <div class="step-connector"></div>
 
                 <div class="step-card reveal">
                     <div class="step-number">03</div>
                     <div class="step-content">
-                        <h3>Gate-level optimization</h3>
-                        <p>The final implementation sweep. Refining RTL for timing closure, reducing switching activity, and ensuring robust signal integrity across the chip.</p>
+                        <h3>Verify before you trust</h3>
+                        <p>Self-checking testbenches in Vivado, parametric sweeps in LTspice, LOPO cross-validation for the neural network — I don't consider something done until it's been stressed at boundary conditions and the numbers make sense.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Skills -->
+            <section class="paper-section reveal mt-section">
+                <h2>Technical Skills</h2>
+
+                <div class="skills-category" style="margin-bottom:20px;">
+                    <span class="skills-category-label">Areas of Interest</span>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Digital VLSI Design</span>
+                        <span class="skill-tag">FPGA Design</span>
+                        <span class="skill-tag">Digital Signal Processing</span>
+                        <span class="skill-tag">Neuromorphic SNN</span>
+                    </div>
+                </div>
+
+                <div class="skills-category" style="margin-bottom:20px;">
+                    <span class="skills-category-label">Core Subjects</span>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Digital Electronics</span>
+                        <span class="skill-tag">CMOS VLSI Design</span>
+                        <span class="skill-tag">Computer Architecture</span>
+                    </div>
+                </div>
+
+                <div class="skills-category" style="margin-bottom:20px;">
+                    <span class="skills-category-label">Simulation &amp; Design Tools</span>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Vivado</span>
+                        <span class="skill-tag">Cadence Virtuoso</span>
+                        <span class="skill-tag">LTspice</span>
+                        <span class="skill-tag">KiCAD</span>
+                    </div>
+                </div>
+
+                <div class="skills-category" style="margin-bottom:20px;">
+                    <span class="skills-category-label">Hardware Description Languages</span>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Verilog</span>
+                        <span class="skill-tag">VHDL</span>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <span class="skills-category-label">Programming</span>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C / C++</span>
                     </div>
                 </div>
             </section>
 
-            <!-- Competencies -->
-            <section class="mt-section">
-                <div class="section-header reveal">
-                    <h2>Core competencies</h2>
-                </div>
-                <div class="grid grid-2 reveal-stagger" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-                    <div class="card reveal" style="padding: 24px;">
-                        <h4>ASIC Design</h4>
-                    </div>
-                    <div class="card reveal" style="padding: 24px;">
-                        <h4>Verilog HDL</h4>
-                    </div>
-                    <div class="card reveal" style="padding: 24px;">
-                        <h4>PyTorch / SNN</h4>
-                    </div>
-                    <div class="card reveal" style="padding: 24px;">
-                        <h4>Analog IC</h4>
+            <!-- CTA -->
+            <section class="mt-section reveal">
+                <div class="callout">
+                    <h2>Looking for opportunities</h2>
+                    <p>I'm actively seeking internships and full-time roles in VLSI design, FPGA engineering, or hardware-adjacent machine learning. If you're working on something at the edge of hardware and intelligence, I'd like to hear about it.</p>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <a href="index.html#contact" class="btn btn-primary">Get in touch →</a>
+                        <a href="javascript:void(0)" onclick="openResume()" class="btn">View Resume</a>
                     </div>
                 </div>
             </section>
@@ -89,39 +164,35 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            <p>© 2026 Vineet Jethani</p>
+            <div class="footer-inner">
+                <p>© 2026 Vineet Jethani · Electronics Engineer</p>
+                <div class="footer-links">
+                    <a href="https://github.com/vineet-hub7" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/heyvineet" target="_blank">LinkedIn</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Back to Top -->
     <button id="back-to-top" title="Back to Top">↑</button>
 
     <!-- Resume Modal -->
     <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h2>Resume</h2>
+                <h2>Resume — Vineet Jethani</h2>
                 <button class="close-modal" onclick="closeResume()">&times;</button>
             </div>
             <div class="modal-body">
                 <aside class="resume-sidebar">
-                    <div class="metric-card">
-                        <div class="metric-label">University</div>
-                        <div class="metric-value">NIT Surat</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">GPA</div>
-                        <div class="metric-value">8.10 CGPA</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Focus Areas</div>
-                        <div class="metric-value">VLSI, Hardware ML, Neuromorphic SNN</div>
-                    </div>
-                    <div style="flex-grow: 1;"></div>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div class="metric-card"><div class="metric-label">University</div><div class="metric-value">SVNIT Surat</div></div>
+                    <div class="metric-card"><div class="metric-label">Degree</div><div class="metric-value">B.Tech ECE</div></div>
+                    <div class="metric-card"><div class="metric-label">CGPA</div><div class="metric-value">8.10 / 10</div></div>
+                    <div class="metric-card"><div class="metric-label">Graduation</div><div class="metric-value">July 2027</div></div>
+                    <div style="flex-grow:1;"></div>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
                         <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
                         <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
                     </div>
@@ -129,7 +200,7 @@
                 <section class="resume-viewer" id="resume-viewer">
                     <div class="resume-loader" id="resume-loader">
                         <div class="loader-ring"></div>
-                        <div class="loader-text" id="loader-status">Loading...</div>
+                        <div class="loader-text">Loading...</div>
                     </div>
                     <iframe src="Vineet_Jethani.pdf"></iframe>
                 </section>

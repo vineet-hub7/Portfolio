@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects — Vineet Jethani</title>
-    <meta name="description" content="Electronics engineering projects: Neuromorphic SNN seizure detection, UART transmitter, and RF circuit design.">
+    <meta name="description" content="Electronics engineering projects: neuromorphic SNN seizure detection, UART transmitter in Verilog, and 900 MHz RF circuit design.">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav class="site-nav">
         <a href="index.html" class="nav-name">Vineet Jethani</a>
         <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -30,18 +29,18 @@
     <main class="container page-section">
 
         <div class="page-header reveal">
-            <span class="label">Projects</span>
+            <span class="label">Academic Projects</span>
             <h1>Engineering Portfolio</h1>
-            <p>Neuromorphic computing, FPGA design, and RF circuit engineering — from silicon to deployment.</p>
+            <p>Neuromorphic computing, FPGA digital design, and RF circuit engineering — from algorithm to silicon.</p>
         </div>
 
-        <div class="grid reveal-stagger" style="grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 28px;">
+        <div class="grid reveal-stagger" style="grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px;">
 
             <!-- Project 1: EEG Seizure Prediction -->
             <a href="project_1.html" class="card card-link reveal">
-                <div class="card-label">Neuromorphic / BioSignal</div>
+                <div class="card-label">01 · Neuromorphic / BioSignal</div>
                 <h3>EEG-Based Seizure Prediction using Spiking Neural Networks</h3>
-                <p>Real-time seizure detection using biologically-inspired spike encoding and LIF neurons on NVIDIA Jetson Nano.</p>
+                <p>Hybrid deep learning framework combining CNN-based feature extraction with a spike-driven LIF gating mechanism. Processed EEG signals (0.5–40 Hz) using window-based segmentation and Butterworth filtering, deployed on NVIDIA Jetson Nano for real-time edge inference.</p>
 
                 <div class="stat-row">
                     <div class="stat-item">
@@ -49,8 +48,22 @@
                         <span class="stat-value">92.35%</span>
                     </div>
                     <div class="stat-item">
+                        <span class="stat-label">Specificity</span>
+                        <span class="stat-value">92.38%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Sensitivity</span>
+                        <span class="stat-value">85.82%</span>
+                    </div>
+                </div>
+                <div class="stat-row" style="border-top:none; padding-top:0; margin-top:8px;">
+                    <div class="stat-item">
                         <span class="stat-label">Energy</span>
                         <span class="stat-value">151.53 µJ</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Validation</span>
+                        <span class="stat-value">LOPO-CV</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Hardware</span>
@@ -58,14 +71,21 @@
                     </div>
                 </div>
 
-                <span class="card-arrow">Read more →</span>
+                <div class="skill-tags" style="margin-top:20px;">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">snnTorch</span>
+                    <span class="skill-tag">Edge AI</span>
+                </div>
+
+                <span class="card-arrow">Read full project →</span>
             </a>
 
             <!-- Project 2: UART Transmitter -->
             <a href="project_2.html" class="card card-link reveal">
-                <div class="card-label">Digital / FPGA</div>
+                <div class="card-label">02 · Digital / FPGA</div>
                 <h3>UART Transmitter</h3>
-                <p>Verilog-based FSM transmitter with internal baud rate generator and protocol-correct 8N1 serial framing.</p>
+                <p>Designed and implemented a UART transmitter from scratch in Verilog with an internal baud rate generator derived from the system clock. Designed a 4-state FSM (IDLE, START, DATA, STOP) ensuring protocol-correct 8N1 serial framing with LSB-first data serialisation via a shift register datapath. Verified end-to-end using a self-checking testbench in Xilinx Vivado with waveform-level timing analysis.</p>
 
                 <div class="stat-row">
                     <div class="stat-item">
@@ -74,22 +94,29 @@
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Protocol</span>
-                        <span class="stat-value">8N1</span>
+                        <span class="stat-value">8N1 Serial</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-label">Tool</span>
-                        <span class="stat-value">Vivado</span>
+                        <span class="stat-label">Timing</span>
+                        <span class="stat-value">Passed</span>
                     </div>
                 </div>
 
-                <span class="card-arrow">Read more →</span>
+                <div class="skill-tags" style="margin-top:20px;">
+                    <span class="skill-tag">Verilog HDL</span>
+                    <span class="skill-tag">Xilinx Vivado</span>
+                    <span class="skill-tag">FSM Design</span>
+                    <span class="skill-tag">FPGA</span>
+                </div>
+
+                <span class="card-arrow">Read full project →</span>
             </a>
 
-            <!-- Project 3: 2G GSM Jammer -->
+            <!-- Project 3: GSM Jammer -->
             <a href="project_3.html" class="card card-link reveal">
-                <div class="card-label">RF / Analog</div>
+                <div class="card-label">03 · RF / Analog</div>
                 <h3>2G GSM Mobile Signal Jammer</h3>
-                <p>900 MHz RF interference circuit using NE555 astable multivibrator and BF495 RF transistor with LC tank oscillator.</p>
+                <p>Designed a 900 MHz RF interference circuit using an NE555 astable multivibrator as the modulation source driving a BF495 RF transistor in common-emitter topology. Designed an LC tank oscillator with air-core inductors and trimmer capacitors achieving tunable output across the 880–960 MHz GSM band. Analysed transistor biasing (Q-point, V<sub>CE</sub>, I<sub>C</sub>) and verified via LTspice simulation.</p>
 
                 <div class="stat-row">
                     <div class="stat-item">
@@ -106,57 +133,53 @@
                     </div>
                 </div>
 
-                <span class="card-arrow">Read more →</span>
+                <div class="skill-tags" style="margin-top:20px;">
+                    <span class="skill-tag">RF Design</span>
+                    <span class="skill-tag">LTspice</span>
+                    <span class="skill-tag">Analog Electronics</span>
+                    <span class="skill-tag">KiCAD</span>
+                </div>
+
+                <span class="card-arrow">Read full project →</span>
             </a>
 
         </div>
 
     </main>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            <p>© 2026 Vineet Jethani</p>
+            <div class="footer-inner">
+                <p>© 2026 Vineet Jethani · Electronics Engineer</p>
+                <div class="footer-links">
+                    <a href="https://github.com/vineet-hub7" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/heyvineet" target="_blank">LinkedIn</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Back to Top -->
     <button id="back-to-top" title="Back to Top">↑</button>
 
     <!-- Resume Modal -->
     <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h2>Resume</h2>
+                <h2>Resume — Vineet Jethani</h2>
                 <button class="close-modal" onclick="closeResume()">&times;</button>
             </div>
             <div class="modal-body">
                 <aside class="resume-sidebar">
-                    <div class="metric-card">
-                        <div class="metric-label">University</div>
-                        <div class="metric-value">NIT Surat</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Degree</div>
-                        <div class="metric-value">B.Tech ECE</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">CGPA</div>
-                        <div class="metric-value">8.10 / 10</div>
-                    </div>
-
-                    <div style="flex-grow: 1;"></div>
-
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">
-                            Download PDF
-                        </button>
-                        <button class="resume-btn btn-outline" onclick="window.print()">
-                            Print
-                        </button>
+                    <div class="metric-card"><div class="metric-label">University</div><div class="metric-value">SVNIT Surat</div></div>
+                    <div class="metric-card"><div class="metric-label">Degree</div><div class="metric-value">B.Tech ECE</div></div>
+                    <div class="metric-card"><div class="metric-label">CGPA</div><div class="metric-value">8.10 / 10</div></div>
+                    <div class="metric-card"><div class="metric-label">Graduation</div><div class="metric-value">July 2027</div></div>
+                    <div style="flex-grow:1;"></div>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">Download PDF</button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">Print</button>
                     </div>
                 </aside>
-
                 <section class="resume-viewer" id="resume-viewer">
                     <div class="resume-loader" id="resume-loader">
                         <div class="loader-ring"></div>

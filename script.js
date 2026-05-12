@@ -1,7 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ==========================================================================
-       SCROLL REVEAL — Intersection Observer with stagger
+       THEME — persist in localStorage, default dark
+       ========================================================================== */
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const themeIcon = document.getElementById('theme-icon');
+    if (themeIcon) themeIcon.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+
+    window.toggleTheme = function () {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        const icon = document.getElementById('theme-icon');
+        if (icon) icon.textContent = next === 'light' ? '☀️' : '🌙';
+    };
+
+    /* ==========================================================================
+       SCROLL PROGRESS BAR
+       ========================================================================== */
+    const progressBar = document.createElement('div');
+    progressBar.style.cssText = `
+        position:fixed; top:0; left:0; height:2px; z-index:2000;
+        background:linear-gradient(90deg, #E8A020, #F5B840);
+        width:0%; transition:width 0.08s linear;
+        pointer-events:none;
+        box-shadow:0 0 10px rgba(232,160,32,0.5);
+    `;
+    document.body.appendChild(progressBar);
+
+    /* ==========================================================================
+       SCROLL REVEAL — Intersection Observer
        ========================================================================== */
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -10,30 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 revealObserver.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.08,
-        rootMargin: '0px 0px -40px 0px'
-    });
+    }, { threshold: 0.07, rootMargin: '0px 0px -36px 0px' });
 
-    document.querySelectorAll('.reveal, .section-divider').forEach(el => {
+    document.querySelectorAll('.reveal, .reveal-left, .section-divider').forEach(el => {
         revealObserver.observe(el);
     });
 
     /* ==========================================================================
-       ANIMATED PROGRESS BAR
-       ========================================================================== */
-    const progressBar = document.createElement('div');
-    progressBar.style.cssText = `
-        position: fixed; top: 0; left: 0; height: 2px; z-index: 1001;
-        background: linear-gradient(90deg, var(--accent), var(--accent-warm));
-        width: 0%; transition: width 0.1s linear;
-        pointer-events: none;
-        box-shadow: 0 0 12px var(--accent);
-    `;
-    document.body.appendChild(progressBar);
-
-    /* ==========================================================================
-       SCROLL HANDLER — Progress bar + back-to-top
+       SCROLL HANDLER — progress bar + back to top
        ========================================================================== */
     const backToTop = document.getElementById('back-to-top');
     let scrollTicking = false;
@@ -43,17 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(() => {
                 const scrolled = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progress = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
-                progressBar.style.width = `${progress}%`;
+                progressBar.style.width = docHeight > 0 ? `${(scrolled / docHeight) * 100}%` : '0%';
 
                 if (backToTop) {
-                    if (scrolled > 500) {
-                        backToTop.classList.add('visible');
-                    } else {
-                        backToTop.classList.remove('visible');
-                    }
+                    backToTop.classList.toggle('visible', scrolled > 480);
                 }
-
                 scrollTicking = false;
             });
             scrollTicking = true;
@@ -61,33 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     if (backToTop) {
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        backToTop.addEventListener('click', () =>
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        );
     }
-
-    /* ==========================================================================
-       THEME TOGGLE
-       ========================================================================== */
-    window.toggleTheme = function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-
-        const icon = document.getElementById('theme-icon');
-        if (icon) icon.textContent = newTheme === 'light' ? '☀️' : '🌙';
-    };
-
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    const themeIcon = document.getElementById('theme-icon');
-    if (themeIcon) themeIcon.textContent = savedTheme === 'light' ? '☀️' : '🌙';
 
     /* ==========================================================================
        RESUME MODAL
        ========================================================================== */
-    window.openResume = function() {
+    window.openResume = function () {
         const modal = document.getElementById('resume-modal');
         const loader = document.getElementById('resume-loader');
         const viewer = document.getElementById('resume-viewer');
@@ -96,235 +86,227 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modal) {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-
-            if (loader) loader.style.opacity = '1';
-
+            if (loader) { loader.style.opacity = '1'; loader.style.display = 'flex'; }
             if (iframe) {
-                const currentSrc = iframe.getAttribute('data-src') || iframe.src;
                 iframe.src = '';
-                iframe.src = currentSrc || 'Vineet_Jethani.pdf';
+                iframe.src = 'Vineet_Jethani.pdf';
             }
         }
     };
 
-    window.closeResume = function() {
+    window.closeResume = function () {
         const modal = document.getElementById('resume-modal');
         if (modal) {
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
         }
     };
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            window.closeResume();
-        }
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') window.closeResume();
     });
 
     const resumeIframe = document.querySelector('#resume-modal iframe');
     if (resumeIframe) {
-        resumeIframe.onload = function() {
+        resumeIframe.onload = function () {
             const loader = document.getElementById('resume-loader');
-            const viewer = document.getElementById('resume-viewer');
             if (loader) {
                 setTimeout(() => {
                     loader.style.opacity = '0';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                        if (viewer) viewer.style.opacity = '1';
-                    }, 400);
+                    setTimeout(() => { loader.style.display = 'none'; }, 400);
                 }, 300);
             }
         };
     }
 
     /* ==========================================================================
+       MOBILE HAMBURGER MENU
+       ========================================================================== */
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks  = document.querySelector('.nav-links');
+    const navOverlay = document.querySelector('.nav-overlay');
+
+    function closeMenu() {
+        hamburger?.classList.remove('active');
+        navLinks?.classList.remove('open');
+        navOverlay?.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    hamburger?.addEventListener('click', () => {
+        const isOpen = navLinks?.classList.contains('open');
+        if (isOpen) {
+            closeMenu();
+        } else {
+            hamburger.classList.add('active');
+            navLinks?.classList.add('open');
+            navOverlay?.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
+
+    navOverlay?.addEventListener('click', closeMenu);
+    navLinks?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    /* ==========================================================================
        NAV ACTIVE STATE
        ========================================================================== */
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-links a').forEach(link => {
         const href = link.getAttribute('href');
-        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+        if (href === currentFile || (currentFile === '' && href === 'index.html')) {
             link.classList.add('active');
         }
     });
 
     /* ==========================================================================
-       MOBILE HAMBURGER MENU
-       ========================================================================== */
-    const hamburger = document.querySelector('.nav-hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const navOverlay = document.querySelector('.nav-overlay');
-
-    function closeMenu() {
-        if (hamburger) hamburger.classList.remove('active');
-        if (navLinks) navLinks.classList.remove('open');
-        if (navOverlay) navOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            const isOpen = navLinks.classList.contains('open');
-            if (isOpen) {
-                closeMenu();
-            } else {
-                hamburger.classList.add('active');
-                navLinks.classList.add('open');
-                if (navOverlay) navOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    }
-
-    if (navOverlay) {
-        navOverlay.addEventListener('click', closeMenu);
-    }
-
-    if (navLinks) {
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-    }
-
-    /* ==========================================================================
-       TYPEWRITER ANIMATION — Hero tagline cycles through phrases
-       ========================================================================== */
-    const scrambleTextEl = document.querySelector('.scramble-text');
-    if (scrambleTextEl) {
-        const phrases = ['I design silicon.', 'I speak in Verilog.', 'I build at gate level.'];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeSpeed = 80;
-        const deleteSpeed = 40;
-        const pauseTime = 2000;
-
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-
-            if (isDeleting) {
-                charIndex--;
-            } else {
-                charIndex++;
-            }
-
-            scrambleTextEl.textContent = currentPhrase.substring(0, charIndex);
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                setTimeout(type, pauseTime);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                setTimeout(type, 500);
-            } else {
-                setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
-            }
-        }
-
-        setTimeout(type, 500);
-    }
-
-    /* ==========================================================================
-       CARD TILT EFFECT ON HOVER
+       CARD 3D TILT — subtle perspective on hover
        ========================================================================== */
     document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
+        card.addEventListener('mousemove', e => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = (y - centerY) * 0.02;
-            const rotateY = (centerX - x) * 0.02;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+            const rotX = ((y - cy) / cy) * 2.5;
+            const rotY = ((cx - x) / cx) * 2.5;
+            card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-3px)`;
         });
 
         card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(-4px)';
+            card.style.transform = '';
         });
     });
 
     /* ==========================================================================
-       PARALLAX HERO IMAGE
+       HERO PARALLAX — subtle profile image offset on scroll
        ========================================================================== */
-    const profileImage = document.querySelector('.profile-image');
-    if (profileImage) {
+    const heroFrame = document.querySelector('.hero-image-frame');
+    if (heroFrame) {
         window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            profileImage.style.transform = `translateY(${scrollY * 0.3}px)`;
+            const y = window.scrollY;
+            if (y < window.innerHeight * 1.2) {
+                heroFrame.style.transform = `translateY(${y * 0.08}px)`;
+            }
         }, { passive: true });
     }
 
     /* ==========================================================================
-       GLITCH EFFECT ON HERO NAME (on page load)
+       ANIMATED COUNTER — elements with data-count attribute
        ========================================================================== */
-    const navName = document.querySelector('.nav-name');
-    if (navName) {
-        function triggerGlitch() {
-            const originalText = navName.textContent;
-            navName.style.animation = 'none';
-
-            setTimeout(() => {
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => {
-                        const glitchText = originalText
-                            .split('')
-                            .map(() => String.fromCharCode(65 + Math.random() * 26))
-                            .join('');
-                        navName.textContent = glitchText;
-                    }, i * 30);
-                }
-
-                setTimeout(() => {
-                    navName.textContent = originalText;
-                }, 150);
-            }, 100);
-        }
-
-        triggerGlitch();
-    }
-
-    /* ==========================================================================
-       ANIMATED NUMBER COUNTER
-       ========================================================================== */
-    const counterObserver = new IntersectionObserver((entries) => {
+    const counterObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const endValue = parseInt(target.getAttribute('data-count'));
-                if (isNaN(endValue)) return;
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const end = parseFloat(el.getAttribute('data-count'));
+            const suffix = el.getAttribute('data-suffix') || '';
+            const decimals = el.getAttribute('data-decimals') || 0;
+            if (isNaN(end)) return;
 
-                const duration = 1500;
-                const startTime = performance.now();
-                const startValue = 0;
+            const duration = 1400;
+            const start = performance.now();
 
-                function updateCounter(now) {
-                    const elapsed = now - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const eased = 1 - (1 - progress) * (1 - progress);
-                    const current = Math.floor(startValue + (endValue - startValue) * eased);
-                    target.textContent = current + (target.getAttribute('data-suffix') || '');
-
-                    if (progress < 1) {
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        target.textContent = endValue + (target.getAttribute('data-suffix') || '');
-                    }
-                }
-
-                requestAnimationFrame(updateCounter);
-                counterObserver.unobserve(target);
+            function tick(now) {
+                const t = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - t, 3);
+                const val = (end * eased).toFixed(decimals);
+                el.textContent = val + suffix;
+                if (t < 1) requestAnimationFrame(tick);
+                else el.textContent = end.toFixed(decimals) + suffix;
             }
+
+            requestAnimationFrame(tick);
+            counterObs.unobserve(el);
         });
     }, { threshold: 0.5 });
 
-    document.querySelectorAll('.impact-number[data-count]').forEach(el => {
-        counterObserver.observe(el);
+    document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+
+    /* ==========================================================================
+       SMOOTH SCROLL — for anchor links
+       ========================================================================== */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', e => {
+            const target = document.querySelector(anchor.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                const offset = 72;
+                const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        });
     });
+
+    /* ==========================================================================
+       HERO ENTRANCE ANIMATION — stagger on first load
+       ========================================================================== */
+    const heroReveal = document.querySelector('.hero .reveal');
+    if (heroReveal) {
+        heroReveal.style.opacity = '0';
+        heroReveal.style.transform = 'translateY(24px)';
+        setTimeout(() => {
+            heroReveal.style.transition = 'opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+            heroReveal.style.opacity = '1';
+            heroReveal.style.transform = 'translateY(0)';
+        }, 80);
+    }
+
+    /* ==========================================================================
+       CONTACT FORM — success feedback
+       ========================================================================== */
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', () => {
+            const btn = contactForm.querySelector('button[type="submit"]');
+            if (btn) {
+                btn.textContent = 'Sending…';
+                btn.disabled = true;
+            }
+        });
+    }
+
+    /* ==========================================================================
+       SKILL TAG — stagger appearance when entering viewport
+       ========================================================================== */
+    const skillObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const tags = entry.target.querySelectorAll('.skill-tag');
+            tags.forEach((tag, i) => {
+                tag.style.opacity = '0';
+                tag.style.transform = 'translateY(8px)';
+                setTimeout(() => {
+                    tag.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                    tag.style.opacity = '1';
+                    tag.style.transform = 'translateY(0)';
+                }, i * 45);
+            });
+            skillObs.unobserve(entry.target);
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.skill-tags').forEach(el => skillObs.observe(el));
+
+    /* ==========================================================================
+       CURSOR GLOW — subtle amber glow follows mouse on desktop
+       ========================================================================== */
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const glow = document.createElement('div');
+        glow.style.cssText = `
+            position:fixed; pointer-events:none; z-index:9999;
+            width:300px; height:300px; border-radius:50%;
+            background:radial-gradient(circle, rgba(232,160,32,0.04) 0%, transparent 70%);
+            transform:translate(-50%,-50%);
+            transition:left 0.15s ease, top 0.15s ease;
+            will-change:left,top;
+        `;
+        document.body.appendChild(glow);
+
+        document.addEventListener('mousemove', e => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        }, { passive: true });
+    }
 
 });
