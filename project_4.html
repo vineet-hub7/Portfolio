@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEC IR Transmitter & Receiver on FPGA — Vineet Jethani</title>
+    <meta name="description" content="Full-duplex NEC infrared transceiver implemented on Renesas FPGA with RP2040 MCU communication via UART, built on the Vicharak Shrike development board.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="index.html#contact">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <main class="container">
+        <div class="paper-content">
+
+            <a href="projects.html" class="back-link reveal">← Back to projects</a>
+
+            <header class="paper-header reveal">
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 04 · FPGA / Embedded · Vicharak Internship</span>
+                <h1>NEC IR Transmitter & Receiver on FPGA</h1>
+                <p>Full-duplex NEC infrared transceiver system built on the Vicharak Shrike development board — combining a Renesas FPGA for real-time protocol encoding/decoding with an RP2040 microcontroller for host communication over a custom 2-wire synchronous serial interface.</p>
+            </header>
+
+            <!-- Overview -->
+            <section class="paper-section reveal">
+                <h2>Overview</h2>
+                <p>Consumer IR remotes use the NEC protocol — a pulse-distance encoding scheme operating at a 38 kHz carrier frequency. This project implements a complete NEC transceiver in synthesisable Verilog: the FPGA receives transmit commands from an RP2040 MCU over a 2-wire link (DATA + CLOCK), modulates them onto a 38 kHz IR carrier via an LED, and simultaneously listens for incoming IR signals through a TSOP1738 sensor. Decoded frames (address + command) are reported back to the MCU in real-time, completing a full loopback verification chain.</p>
+                <p>The entire system was designed, simulated, and deployed on the <strong>Vicharak Shrike</strong> board — a compact FPGA+MCU development platform — as part of an internship project at <strong>Vicharak</strong>.</p>
+            </section>
+
+            <!-- System Architecture -->
+            <section class="paper-section reveal">
+                <h2>System Architecture</h2>
+
+                <h4 style="margin: 24px 0 12px;">End-to-End Data Flow</h4>
+                <div class="diagram-box">
+                    <div class="diagram-label">Python → FPGA → IR Light → FPGA → Python</div>
+                    <div class="diagram-flow">
+                        <div class="diagram-node">Python Script (RP2040)</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Serial RX</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node active">NEC Encoder</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">38 kHz Carrier</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">IR LED</div>
+                    </div>
+                </div>
+
+                <div class="diagram-box" style="margin-top: 16px;">
+                    <div class="diagram-label">Return Path: IR Receive → Decode → Report</div>
+                    <div class="diagram-flow">
+                        <div class="diagram-node">TSOP1738</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node active">NEC Decoder</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Serial TX</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Python Script (RP2040)</div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 24px 0 12px;">Verilog Module Hierarchy</h4>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li><strong>ir_top.v</strong> — Top-level module integrating all sub-modules and managing inter-module routing</li>
+                    <li><strong>nec_encoder.v</strong> — NEC protocol encoder generating AGC leader, address/command bits with pulse-distance timing, and repeat code support</li>
+                    <li><strong>nec_decoder.v</strong> — NEC protocol decoder with edge-detection, bit-width measurement, and frame validation (address + inverted address check)</li>
+                    <li><strong>carrier_generator.v</strong> — Precision 38 kHz square-wave generator derived from 50 MHz system clock (counter-based frequency division)</li>
+                </ul>
+            </section>
+
+            <!-- NEC Protocol Details -->
+            <section class="paper-section reveal">
+                <h2>NEC Protocol Implementation</h2>
+
+                <h4 style="margin: 16px 0 12px;">Transmission Frame Structure</h4>
+                <table class="data-table">
+                    <tr>
+                        <th>Phase</th>
+                        <th>Duration</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>AGC Leader (Mark)</td>
+                        <td>9 ms</td>
+                        <td>38 kHz burst — alerts the receiver that a frame is starting</td>
+                    </tr>
+                    <tr>
+                        <td>AGC Leader (Space)</td>
+                        <td>4.5 ms</td>
+                        <td>Silent gap separating leader from data</td>
+                    </tr>
+                    <tr>
+                        <td>Logic '0'</td>
+                        <td>562.5 µs mark + 562.5 µs space</td>
+                        <td>Short space indicates a zero bit</td>
+                    </tr>
+                    <tr>
+                        <td>Logic '1'</td>
+                        <td>562.5 µs mark + 1687.5 µs space</td>
+                        <td>Long space indicates a one bit</td>
+                    </tr>
+                    <tr>
+                        <td>Repeat Code</td>
+                        <td>9 ms mark + 2.25 ms space + 562.5 µs burst</td>
+                        <td>Sent when a remote button is held down</td>
+                    </tr>
+                </table>
+
+                <h4 style="margin: 24px 0 12px;">2-Wire Serial Command Protocol (MCU ↔ FPGA)</h4>
+                <table class="data-table">
+                    <tr>
+                        <th>Byte</th>
+                        <th>Direction (MCU → FPGA)</th>
+                        <th>Direction (FPGA → MCU)</th>
+                    </tr>
+                    <tr>
+                        <td>Byte 0 (Type)</td>
+                        <td><code>0x01</code> = New Command, <code>0x02</code> = Repeat</td>
+                        <td><code>0x01</code> = Decoded Frame, <code>0x02</code> = Repeat Detected</td>
+                    </tr>
+                    <tr>
+                        <td>Byte 1 (Address)</td>
+                        <td>8-bit device address</td>
+                        <td>Decoded address from IR frame</td>
+                    </tr>
+                    <tr>
+                        <td>Byte 2 (Command)</td>
+                        <td>8-bit command code</td>
+                        <td>Decoded command from IR frame</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Results & Metrics -->
+            <section class="paper-section reveal">
+                <h2>Results & Verification</h2>
+
+                <h4 style="margin: 16px 0 12px;">Simulation Results</h4>
+                <div class="result-cards">
+                    <div class="result-card">
+                        <div class="label">Carrier Frequency</div>
+                        <div class="value">38 kHz</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Serial Protocol</div>
+                        <div class="value">2-Wire Sync</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">System Clock</div>
+                        <div class="value">50 MHz</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Verilog Modules</div>
+                        <div class="value">6</div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 24px 0 12px;">Testbench Verification</h4>
+                <p>A comprehensive self-checking testbench (<code>tb_ir_top.v</code>) validates the entire loopback chain: Serial RX → NEC Encode → IR Modulation → TSOP Decode → NEC Decode → Serial TX. The testbench verifies:</p>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li>Correct 9 ms AGC leader pulse generation with 38 kHz modulation</li>
+                    <li>Accurate pulse-distance encoding of all 32 data bits (address + inverted address + command + inverted command)</li>
+                    <li>NEC Repeat Code generation (9 ms + 2.25 ms + burst) for held buttons</li>
+                    <li>Full loopback: transmitted address and command match decoded values byte-for-byte</li>
+                    <li>Serial frame integrity over the 2-wire synchronous interface</li>
+                </ul>
+
+                <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-top: 16px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+                    <div style="color: var(--accent); margin-bottom: 4px;">// Testbench output</div>
+                    <div>[PASS] Serial loopback: addr=0x12, cmd=0x34</div>
+                    <div>[PASS] NEC Repeat Code detected</div>
+                    <div>========================================</div>
+                    <div style="color: var(--accent);">ALL TESTS PASSED</div>
+                    <div>========================================</div>
+                </div>
+            </section>
+
+            <!-- Hardware Details -->
+            <section class="paper-section reveal">
+                <h2>Hardware & Pin Mapping</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>Signal</th>
+                        <th>FPGA Pin</th>
+                        <th>Connected To</th>
+                    </tr>
+                    <tr>
+                        <td><code>i_clk</code></td>
+                        <td>Internal Oscillator</td>
+                        <td>50 MHz system clock</td>
+                    </tr>
+                    <tr>
+                        <td><code>data_in</code></td>
+                        <td>GPIO15_IN [PIN 6]</td>
+                        <td>RP2040 GPIO 5 (DATA)</td>
+                    </tr>
+                    <tr>
+                        <td><code>clk_in</code></td>
+                        <td>GPIO13_OUT [PIN 4]</td>
+                        <td>RP2040 GPIO 6 (CLOCK)</td>
+                    </tr>
+                    <tr>
+                        <td><code>ir_out</code></td>
+                        <td>GPIO07_OUT</td>
+                        <td>IR LED (940 nm) via 220Ω resistor</td>
+                    </tr>
+                    <tr>
+                        <td><code>tsop_in</code></td>
+                        <td>GPIO02_IN [PIN 15]</td>
+                        <td>TSOP1738 OUT pin</td>
+                    </tr>
+                </table>
+
+                <h4 style="margin: 24px 0 12px;">Physical Components</h4>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li><strong>Board:</strong> Vicharak Shrike — Renesas FPGA (1120 LUTs) + RP2040 MCU</li>
+                    <li><strong>IR Transmitter:</strong> 940 nm IR LED with 220Ω current-limiting resistor</li>
+                    <li><strong>IR Receiver:</strong> TSOP1738 (38 kHz tuned) infrared sensor</li>
+                    <li><strong>MCU Software:</strong> MicroPython running on RP2040</li>
+                    <li><strong>FPGA Toolchain:</strong> Renesas Go Configure for synthesis and bitstream generation</li>
+                </ul>
+            </section>
+
+            <!-- Technical Details -->
+            <section class="paper-section reveal">
+                <h2>Technical Details</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Specification</th>
+                    </tr>
+                    <tr>
+                        <td>IR Protocol</td>
+                        <td>NEC (32-bit: address + ~address + command + ~command)</td>
+                    </tr>
+                    <tr>
+                        <td>Carrier Frequency</td>
+                        <td>38 kHz (duty cycle ≈ 33%)</td>
+                    </tr>
+                    <tr>
+                        <td>MCU–FPGA Interface</td>
+                        <td>2-Wire Synchronous Serial (DATA + CLOCK)</td>
+                    </tr>
+                    <tr>
+                        <td>System Clock</td>
+                        <td>50 MHz (internal FPGA oscillator)</td>
+                    </tr>
+                    <tr>
+                        <td>FPGA Family</td>
+                        <td>Renesas (1120 × 5-input LUTs)</td>
+                    </tr>
+                    <tr>
+                        <td>MCU</td>
+                        <td>RP2040 (Dual ARM Cortex-M0+)</td>
+                    </tr>
+                    <tr>
+                        <td>HDL</td>
+                        <td>Verilog (synthesisable RTL)</td>
+                    </tr>
+                    <tr>
+                        <td>Simulation</td>
+                        <td>Self-checking testbench with GTKWave waveform analysis</td>
+                    </tr>
+                    <tr>
+                        <td>MCU Firmware</td>
+                        <td>MicroPython with machine.UART hardware peripheral</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Skills & Tools -->
+            <section class="paper-section reveal">
+                <h2>Skills & Tools</h2>
+                <div class="skill-tags">
+                    <span class="skill-tag">Verilog HDL</span>
+                    <span class="skill-tag">FPGA Design</span>
+                    <span class="skill-tag">NEC Protocol</span>
+                    <span class="skill-tag">Serial Comm</span>
+                    <span class="skill-tag">MicroPython</span>
+                    <span class="skill-tag">Embedded Systems</span>
+                    <span class="skill-tag">Go Configure</span>
+                    <span class="skill-tag">GTKWave</span>
+                    <span class="skill-tag">Shrike Board</span>
+                </div>
+            </section>
+
+            <!-- Source Code -->
+            <section class="paper-section reveal">
+                <h2>Source Code</h2>
+                <div class="callout">
+                    <p>The complete Verilog RTL, MicroPython scripts, testbench, and pre-built bitstream are available on GitHub.</p>
+                    <a href="https://github.com/vineet-hub7/IR_Transmitter_Receiver" target="_blank" class="btn btn-primary" style="margin-top: 12px;">View on GitHub →</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-inner">
+                <p>© 2026 Vineet Jethani · Electronics Engineer</p>
+                <div class="footer-links">
+                    <a href="https://github.com/vineet-hub7" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/heyvineet" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">CGPA</div>
+                        <div class="metric-value">8.27</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Graduation</div>
+                        <div class="metric-value">July 2027</div>
+                    </div>
+
+                    <div style="flex-grow: 1;"></div>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">
+                            Download PDF
+                        </button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">
+                            Print
+                        </button>
+                    </div>
+                </aside>
+
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

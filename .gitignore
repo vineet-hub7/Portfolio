@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.env
+update_nav.ps1
+code.html
+stitch_exports/
+download_stitch_assets.ps1

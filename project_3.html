@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2G GSM Mobile Signal Jammer — Vineet Jethani</title>
+    <meta name="description" content="900 MHz RF interference circuit using NE555 oscillator and BF495 transistor with LC tank tuning. Analog circuit design and RF verification.">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="nav-name">Vineet Jethani</a>
+        <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="about.html">About</a>
+            <a href="javascript:void(0)" onclick="openResume()">Resume</a>
+            <a href="index.html#contact">Contact</a>
+            <div class="nav-divider"></div>
+            <button class="theme-toggle" id="theme-icon" onclick="toggleTheme()">🌙</button>
+        </div>
+    </nav>
+    <div class="nav-overlay"></div>
+
+    <main class="container">
+        <div class="paper-content">
+
+            <a href="projects.html" class="back-link reveal">← Back to projects</a>
+
+            <header class="paper-header reveal">
+                <span class="label" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project 03 · RF / Analog</span>
+                <h1>2G GSM Mobile Signal Jammer</h1>
+                <p>900 MHz RF interference circuit using an NE555 astable multivibrator as the modulation source driving a BF495 RF transistor in common-emitter topology, with a tunable LC tank oscillator spanning 880–960 MHz.</p>
+            </header>
+
+            <!-- Overview -->
+            <section class="paper-section reveal">
+                <h2>Overview</h2>
+                <p>This project demonstrates RF circuit fundamentals through the design of a 900 MHz interference generator targeting the GSM-900 band. The circuit combines analog oscillator design, transistor biasing, and impedance matching to produce RF output across the 2G cellular spectrum. The system employs a classic LC tank topology with air-core inductors and trimmer capacitors, allowing continuous frequency tuning across the target band via the LC resonance equation: <code>f = 1/(2π√LC)</code>.</p>
+            </section>
+
+            <!-- Circuit Architecture -->
+            <section class="paper-section reveal">
+                <h2>Circuit Architecture</h2>
+
+                <h4 style="margin: 24px 0 12px;">Block Diagram & Signal Flow</h4>
+                <div class="diagram-box">
+                    <div class="diagram-label">RF Interference Chain</div>
+                    <div class="diagram-flow">
+                        <div class="diagram-node">NE555 Oscillator</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">Modulation Signal</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node active">BF495 Transistor</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">LC Tank</div>
+                        <div class="diagram-connector"></div>
+                        <div class="diagram-node">RF Output (880–960 MHz)</div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 24px 0 12px;">Key Components & Design</h4>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li><strong>NE555 Astable Multivibrator:</strong> Generates the modulation/drive signal for the RF transistor. Frequency and duty cycle set by RC network.</li>
+                    <li><strong>BF495 RF Transistor:</strong> High-frequency transistor (f<sub>T</sub> ~3.5 GHz) configured in common-emitter topology for maximum gain at 900 MHz.</li>
+                    <li><strong>Common-Emitter Topology:</strong> Provides voltage and current gain, enabling efficient RF power amplification.</li>
+                    <li><strong>LC Tank Oscillator:</strong>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li>Air-core inductor: Lower loss, higher Q compared to ferrite</li>
+                            <li>Trimmer capacitor: Variable tuning to sweep 880–960 MHz band</li>
+                            <li>Resonance formula: <code>f = 1 / (2π√LC)</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>Transistor Biasing:</strong> Q-point stabilized for linear operation, maximizing RF output power without entering saturation.</li>
+                </ul>
+            </section>
+
+            <!-- Design Specifications -->
+            <section class="paper-section reveal">
+                <h2>Design Specifications</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Specification</th>
+                    </tr>
+                    <tr>
+                        <td>Center Frequency</td>
+                        <td>900 MHz (GSM-900 band)</td>
+                    </tr>
+                    <tr>
+                        <td>Frequency Range (Tunable)</td>
+                        <td>880–960 MHz</td>
+                    </tr>
+                    <tr>
+                        <td>RF Oscillator Type</td>
+                        <td>LC Tank (parallel resonant circuit)</td>
+                    </tr>
+                    <tr>
+                        <td>Inductor Type</td>
+                        <td>Air-core (reduced loss, higher Q)</td>
+                    </tr>
+                    <tr>
+                        <td>Capacitor (Tuning)</td>
+                        <td>Trimmer capacitor (variable tuning)</td>
+                    </tr>
+                    <tr>
+                        <td>Active Device</td>
+                        <td>BF495 NPN transistor (f<sub>T</sub> ~3.5 GHz)</td>
+                    </tr>
+                    <tr>
+                        <td>Amplifier Topology</td>
+                        <td>Common-emitter</td>
+                    </tr>
+                    <tr>
+                        <td>Modulation Source</td>
+                        <td>NE555 astable multivibrator</td>
+                    </tr>
+                    <tr>
+                        <td>Verification Tool</td>
+                        <td>LTspice simulation</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Analysis & Design Considerations -->
+            <section class="paper-section reveal">
+                <h2>Analysis & Transistor Design</h2>
+
+                <h4 style="margin: 16px 0 12px;">Q-Point Analysis</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 12px;">The transistor Q-point (quiescent operating point) defines DC operation and stability:</p>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li><strong>V<sub>CE</sub> (Collector-Emitter Voltage):</strong> Biased to mid-supply for maximum output swing without saturation.</li>
+                    <li><strong>I<sub>C</sub> (Collector Current):</strong> Set by base resistor network to ensure linear operation and prevent saturation/cutoff.</li>
+                    <li><strong>Thermal Stability:</strong> Resistor choices ensure Q-point remains stable with temperature variations.</li>
+                    <li><strong>RF Output Power:</strong> Maximized when transistor operates in linear region with minimal parasitic losses.</li>
+                </ul>
+
+                <h4 style="margin: 24px 0 12px;">LC Tank Resonance</h4>
+                <p style="color: var(--text-secondary);">The parallel LC tank acts as the frequency-determining element. By adjusting the trimmer capacitor, the resonant frequency shifts according to:</p>
+                <p style="color: var(--accent); font-family: var(--font-mono); margin: 16px 0; text-align: center; font-size: 0.95rem;">f<sub>res</sub> = 1 / (2π√LC)</p>
+                <p style="color: var(--text-secondary);">Air-core inductors minimize DC losses and parasitic resistance, maintaining high Q factor and enabling efficient power radiation.</p>
+            </section>
+
+            <!-- Verification & Simulation -->
+            <section class="paper-section reveal">
+                <h2>Verification & Simulation</h2>
+
+                <h4 style="margin: 16px 0 12px;">LTspice Simulation</h4>
+                <p style="color: var(--text-secondary); margin-bottom: 12px;">The complete circuit was modeled and verified in LTspice:</p>
+                <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
+                    <li>Transient analysis to verify oscillation startup and stable operation</li>
+                    <li>AC analysis to measure frequency response and peak power output</li>
+                    <li>Parametric sweep of capacitor value to confirm 880–960 MHz tuning range</li>
+                    <li>Biasing verification: V<sub>CE</sub> and I<sub>C</sub> within linear region</li>
+                    <li>No saturation or cutoff observed across tuning range</li>
+                </ul>
+
+                <h4 style="margin: 24px 0 12px;">Key Measurements</h4>
+                <div class="result-cards">
+                    <div class="result-card">
+                        <div class="label">Center Frequency</div>
+                        <div class="value">900 MHz</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Tuning Range</div>
+                        <div class="value">880–960 MHz</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Topology</div>
+                        <div class="value">Common-Emitter</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="label">Verification</div>
+                        <div class="value">LTspice</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Components -->
+            <section class="paper-section reveal">
+                <h2>Component & Biasing Details</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>Circuit Element</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>NE555 IC</td>
+                        <td>Astable multivibrator for modulation signal generation</td>
+                    </tr>
+                    <tr>
+                        <td>BF495 Transistor</td>
+                        <td>High-frequency NPN for 900 MHz RF amplification</td>
+                    </tr>
+                    <tr>
+                        <td>Inductor (L)</td>
+                        <td>Air-core, value calculated for 900 MHz center frequency</td>
+                    </tr>
+                    <tr>
+                        <td>Capacitor (C)</td>
+                        <td>Trimmer cap for continuous frequency tuning</td>
+                    </tr>
+                    <tr>
+                        <td>Base Resistor</td>
+                        <td>Sets Q-point current; calculated for stable biasing</td>
+                    </tr>
+                    <tr>
+                        <td>Coupling/Bypass Caps</td>
+                        <td>AC coupling to RF stages; bypass for power supply decoupling</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Skills & Tools -->
+            <section class="paper-section reveal">
+                <h2>Skills & Tools</h2>
+                <div class="skill-tags">
+                    <span class="skill-tag">RF Circuit Design</span>
+                    <span class="skill-tag">Analog Electronics</span>
+                    <span class="skill-tag">Transistor Biasing</span>
+                    <span class="skill-tag">LC Oscillators</span>
+                    <span class="skill-tag">LTspice</span>
+                    <span class="skill-tag">Circuit Simulation</span>
+                    <span class="skill-tag">900 MHz Band</span>
+                    <span class="skill-tag">Q-Point Analysis</span>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-inner">
+                <p>© 2026 Vineet Jethani · Electronics Engineer</p>
+                <div class="footer-links">
+                    <a href="https://github.com/vineet-hub7" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/heyvineet" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <!-- Resume Modal -->
+    <div id="resume-modal" class="modal-overlay" onclick="closeResume()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Resume</h2>
+                <button class="close-modal" onclick="closeResume()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <aside class="resume-sidebar">
+                    <div class="metric-card">
+                        <div class="metric-label">University</div>
+                        <div class="metric-value">NIT Surat</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">CGPA</div>
+                        <div class="metric-value">8.27</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Graduation</div>
+                        <div class="metric-value">July 2027</div>
+                    </div>
+
+                    <div style="flex-grow: 1;"></div>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="resume-btn btn-primary-modal" onclick="window.open('Vineet_Jethani.pdf')">
+                            Download PDF
+                        </button>
+                        <button class="resume-btn btn-outline" onclick="window.print()">
+                            Print
+                        </button>
+                    </div>
+                </aside>
+
+                <section class="resume-viewer" id="resume-viewer">
+                    <div class="resume-loader" id="resume-loader">
+                        <div class="loader-ring"></div>
+                        <div class="loader-text">Loading...</div>
+                    </div>
+                    <iframe src="Vineet_Jethani.pdf"></iframe>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
